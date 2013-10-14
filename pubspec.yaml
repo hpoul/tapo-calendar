@@ -1,0 +1,7 @@
+name:  tapo_calendar
+description:  A sample application
+
+dependencies:
+  polymer: any
+#  js: any
+#  unittest: any
