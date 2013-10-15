@@ -23,6 +23,6 @@ class EventListElement extends PolymerElement {
     DateTime date = new DateTime.now();
     DateTime start = new DateTime(date.year, date.month, date.day, 7);
     DateTime end = new DateTime(date.year, date.month, date.day, 7, 45);
-    calendarView.events = [new Event(1, start, end, title, 'uh yeah.')];
+    calendarView.events = [new CalendarEvent(1, start, end, title, 'uh yeah.')];
   }
 }

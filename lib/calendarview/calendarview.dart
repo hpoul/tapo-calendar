@@ -28,14 +28,14 @@ class ZoomLevel {
   static final List<ZoomLevel> values = [OVERVIEWDAY, DAY, QUARTER_HOUR, FIVE_MINUTES, MINUTE];
 }
 
-class Event {
+class CalendarEvent {
   int id;
   DateTime start;
   DateTime end;
   String title;
   String description;
   
-  Event(this.id, this.start, this.end, this.title, this.description);
+  CalendarEvent(this.id, this.start, this.end, this.title, this.description);
 }
 
 
@@ -63,7 +63,7 @@ class CalendarInteractionTracker {
         var minutes = (quarters % _zoomLevel.hourMultiplier) * _zoomLevel.minuteFactor;
         var hours = (quarters ~/ _zoomLevel.hourMultiplier).floor();
         
-        Event event = _calendarView.getEventById(int.parse(eventdiv.attributes['eventid']));
+        CalendarEvent event = _calendarView.getEventById(int.parse(eventdiv.attributes['eventid']));
 
         if (_resizingEventDiv != null) {
           // user is resizing event.
@@ -73,7 +73,7 @@ class CalendarInteractionTracker {
             event.end = event.start.add(new Duration(minutes: _zoomLevel.minuteFactor));
           }
           // check if we are overlapping with any other event.
-          for (Event cmpEvent in _calendarView._events) {
+          for (CalendarEvent cmpEvent in _calendarView._events) {
             if (cmpEvent.start.compareTo(event.start) > 0 && cmpEvent.start.compareTo(event.end) < 0) {
               event.end = cmpEvent.start;
             }
@@ -131,7 +131,7 @@ class CalendarInteractionTracker {
         var date = new DateTime.now();
         var start = new DateTime(date.year, date.month, date.day, hours, minutes);
         var end = start.add(new Duration(minutes: _zoomLevel.minuteFactor));
-        Event newEvent = new Event(_calendarView._events.length+2, start, end, '', '');
+        CalendarEvent newEvent = new CalendarEvent(_calendarView._events.length+2, start, end, '', '');
         
         if (checkObstruction(newEvent) != null) {
           return;
@@ -149,8 +149,8 @@ class CalendarInteractionTracker {
     eventDiv.classes.add('resizing');
   }
   
-  Event checkObstruction(Event e) {
-    for (Event compareEvent in _calendarView._events) {
+  CalendarEvent checkObstruction(CalendarEvent e) {
+    for (CalendarEvent compareEvent in _calendarView._events) {
       if (compareEvent == e) {
         continue;
       }
@@ -171,7 +171,7 @@ class CalendarInteractionTracker {
     return null;
   }
   
-  void trackEvent(Event event, DivElement eventDiv, DivElement eventTimeDiv) {
+  void trackEvent(CalendarEvent event, DivElement eventDiv, DivElement eventTimeDiv) {
     eventTimeDiv.onMouseDown.listen((MouseEvent e) {
       e.preventDefault();
       e.stopPropagation();
@@ -190,7 +190,7 @@ class CalendarInteractionTracker {
 class CalendarView extends PolymerElement {
   @observable @published DateTime day;
   ZoomLevel _zoomLevel = ZoomLevel.DAY;
-  List<Event> _events;
+  List<CalendarEvent> _events;
   
   CalendarInteractionTracker _interactionTracker;
   
@@ -215,8 +215,8 @@ class CalendarView extends PolymerElement {
     _createHtmlTable();
   }
   
-  Event getEventById(int id) {
-    for (Event event in _events) {
+  CalendarEvent getEventById(int id) {
+    for (CalendarEvent event in _events) {
       if (event.id == id) {
         return event;
       }
@@ -224,9 +224,9 @@ class CalendarView extends PolymerElement {
     return null;
   }
   
-  void set events(List<Event> events) {
+  void set events(List<CalendarEvent> events) {
     _events = events;
-    for (Event event in _events) {
+    for (CalendarEvent event in _events) {
       _renderEvent(event);
     }
   }
@@ -258,7 +258,7 @@ class CalendarView extends PolymerElement {
     _zoomLevel = level;
     _interactionTracker._zoomLevel = _zoomLevel;
     _updateCalcHelpers();
-    for(Event event in _events) {
+    for(CalendarEvent event in _events) {
       _updateEvent(event, wrapper.query('div.cal-event[eventid="${event.id}"]'));
     }
   }
@@ -360,7 +360,7 @@ class CalendarView extends PolymerElement {
     dayColumn.id = "daycol-${_formatDate(day)}";
   }
   
-  void _updateEvent(Event event, DivElement eventDiv) {
+  void _updateEvent(CalendarEvent event, DivElement eventDiv) {
     var eventTimeDiv = eventDiv.query('.cal-event-time');
     var eventLabelDiv = eventDiv.query('.cal-event-label');
     
@@ -375,7 +375,7 @@ class CalendarView extends PolymerElement {
     eventTitleDiv.text = event.title;
   }
   
-  DivElement _renderEvent(Event event) {
+  DivElement _renderEvent(CalendarEvent event) {
     DivElement dayColumn = calendarWrapper.query('#daycol-${_formatDate(day)}');
     
     var eventDiv = _createAndAppend(dayColumn, '<div class="cal-event" />');
