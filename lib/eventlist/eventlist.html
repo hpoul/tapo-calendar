@@ -1,10 +1,14 @@
 <html>
   <head>
+    <link rel="import" href="../calendarview/calendarview.html">
   </head>
   <body>
     <polymer-element name="tapo-calendar-eventlist">
       <template>
-        Hello world.
+        <h2>Event List</h2>
+        <button on-click="clickedZoomIn">Zoom In</button>
+        <button on-click="clickedZoomOut">Zoom Out</button>
+        <tapo-calendar-calendarview></tapo-calendar-calendarview>
       </template>
       <script type="application/dart" src="eventlist.dart"></script>
     </polymer-element>

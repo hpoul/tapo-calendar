@@ -5,3 +5,4 @@ dependencies:
   polymer: any
 #  js: any
 #  unittest: any
+  quiver: 0.10.0

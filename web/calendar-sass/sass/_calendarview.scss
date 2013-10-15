@@ -1,0 +1,98 @@
+/* Must be included by calling script. */
+
+.tapo-calendar-calendarview {
+  @import "eventstyles";
+  overflow-y: scroll;
+
+.cal-wrapper {
+    overflow: hidden;
+    position: relative;
+}
+
+.cal-timegrid-wrapper {
+    position: relative;
+    /*top: 1px;*/
+}
+.cal-timegrid {
+    position: absolute;
+    width: 100%;
+}
+.placeholder-cell {
+  width: 60px;
+}
+
+.cal-table {
+    border-collapse: collapse;
+    border: 0px;
+
+    width: 100%;
+
+    font-family: Arial, Verdana;
+    font-size: 8pt;
+    line-height: normal;
+}
+
+.cal-table tr {
+    vertical-align: top;
+}
+
+.cal-timegrid-hour,
+.cal-timelabel-wrapper,
+.cal-timelabel {
+    border-top: 1px solid #ccc;
+}
+.cal-timegrid-hour-half,
+.cal-timegrid-hour-quarter,
+.cal-timegrid-minute-five, 
+.cal-timegrid-minute {
+    border-bottom: 1px dotted #ddd;
+}
+.cal-timelabel {
+    text-align: right;
+    color: #888;
+    padding-right: 5px;
+}
+
+  .cal-timegrid-hour, .cal-timelabel-wrapper, .cal-timelabel, .cal-timegrid-hour-half,
+  .cal-timegrid-minute-five, .cal-timegrid-minute, .cal-eventlistwrapper, .cal-event {
+    //transition: height 0.5s;
+    transition: height 2s, top 2s;
+  }
+
+@mixin zoomlevel($height) {
+  .cal-timegrid-hour, .cal-timelabel-wrapper, .cal-timelabel {
+    height: $height - 1;
+  }
+  .cal-timegrid-hour-half {
+    height: $height / 2 - 1;
+  }
+  .cal-timegrid-hour-quarter {
+    height: $height / 4 - 1;
+  }
+  .cal-timegrid-minute-five {
+    height: $height / 12;
+  }
+  .cal-timegrid-minute {
+    height: $height / 60;
+  }
+  .cal-eventlistwrapper {
+    position: relative;
+    height: $height * 24;
+    cursor: pointer;
+  }
+}
+
+.zoom-day {
+  @include zoomlevel(60px);
+}
+.zoom-quarter-hour {
+  @include zoomlevel(240px);
+}
+.zoom-five-minutes {
+  @include zoomlevel(960px);
+}
+.zoom-minute {
+  @include zoomlevel(3840px);
+}
+
+}

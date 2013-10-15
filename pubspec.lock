@@ -65,6 +65,10 @@ packages:
     description: polymer_expressions
     source: hosted
     version: "0.8.1"
+  quiver:
+    description: quiver
+    source: hosted
+    version: "0.10.0"
   shadow_dom:
     description: shadow_dom
     source: hosted

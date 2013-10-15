@@ -1,0 +1,189 @@
+/******************
+   Events ...
+ ******************/
+
+
+.cal-attendancemarker {
+    position:absolute;
+    /* height: 1px; */
+    /* width: 20px; */
+    right: 5px;
+    /* background-color: red; */
+    background-color: #fee;
+    opacity: 0.8;
+    vertical-align: middle;
+}
+.cal-attendance-content {
+    padding: 3px;
+}
+.cal-break {
+    background: none;
+    border-left: 1px dotted red;
+    padding-left: 2em;
+}
+.cal-sign_out {
+    border-bottom: 1px solid red;
+}
+.cal-sign_in {
+    border-top: 1px solid red;
+}
+
+.cal-event {
+    position: absolute;
+    /* border-top: 1px solid red; */
+    border: 1px solid #009;
+    background-color: #eef;
+    margin-left: 10px;
+    width: 85%;
+    opacity: 0.9;
+    overflow: hidden;
+    @include border-radius(5px);
+}
+.cal-event-time {
+    font-weight: bold;
+    padding-top: 2px;
+    background-color: #55f;
+    color: white;
+    padding-left: 2px;
+    cursor: move;
+}
+.cal-event.type-pending, .cal-event.type-pending .cal-event-time, .type-pending .cal-event-resize {
+    opacity: 0.8;
+    cursor: progress;
+}
+.cal-event.type-inprogress, .cal-event.type-inprogress .cal-event-time, .type-inprogress .cal-event-resize {
+    opacity: 0.5;
+    cursor: progress;
+}
+#worktrail .cal-event.type-inprogress {
+    border-bottom: none;
+}
+.cal-theme-red.cal-event {
+    border: 1px solid #900;
+    background-color: #fee;
+}
+.cal-theme-red .cal-event-time {
+    background-color: #f55;
+}
+.cal-theme-green.cal-event {
+    border: 1px solid #090;
+    background-color: #efe;
+}
+.cal-theme-green .cal-event-time {
+    background-color: #006400;
+}
+.cal-theme-yellow.cal-event {
+    border: 1px solid #990;
+    background-color: #FFFFCC;
+}
+.cal-theme-yellow .cal-event-time {
+    background-color: #FFD700;
+}
+.cal-theme-brown.cal-event {
+    border: 1px solid #B8860B;
+    background-color: #FFEBCD;
+}
+.cal-theme-brown .cal-event-time {
+    background-color: #B8860B;
+}
+
+
+.cal-theme-orange.cal-event {
+    border: 1px solid #f63;
+    background-color: #fc9;
+}
+.cal-theme-orange .cal-event-time {
+    background-color: #f63;
+}
+.cal-theme-purple.cal-event {
+    border: 1px solid #6733DD;
+    background-color: #B99AFF;
+}
+.cal-theme-purple .cal-event-time {
+    background-color: #6733DD;
+}
+.cal-theme-turquoise.cal-event {
+    border: 1px solid #1A8084;
+    background-color: #46D6DB;
+}
+.cal-theme-turquoise .cal-event-time {
+    background-color: #1A8084;
+}
+
+
+.cal-event-time a {
+    cursor: pointer;
+}
+.cal-event-label-wrapper {
+    padding: 5px;
+    padding-right: 10px;
+    height:100%;
+}
+.cal-event-label {
+    min-height: 1em;
+    /* padding: 5px; */
+    /* height:100%; */
+    /* background: white; */
+    cursor: text;
+    border: 1px solid transparent;
+}
+.cal-event-label-val {
+    padding: 1px;
+}
+.playground .ui-widget input.cal-event-label {
+    border: none;
+    /* width: 100%; */
+    padding: 1px;
+    display: block;
+    margin: 0px;
+    font-family: inherit;
+    background: transparent;
+    width: 100%;
+    border: 1px solid transparent;
+}
+
+.playground .ui-widget .cal-event-label-wrapper:hover .cal-event-label, .playground .ui-widget .cal-event-label.editing {
+    border: 1px solid gray;
+}
+.playground .ui-widget .cal-event-label.editing {
+    background: white;
+    z-index: 100000;
+}
+
+.cal-event-resize {
+    position: absolute;
+    width: 100%;
+    height: 7px;
+    bottom: 0px;
+    cursor: s-resize;
+}
+.ismoving {
+    cursor: move;
+}
+.isresizing {
+    cursor: s-resize;
+}
+.cal-event:hover .cal-event-resize, .resizing .cal-event-resize {
+    background-color: #ccf;
+}
+
+.cal-event-title {
+    margin-left: 1em;
+}
+
+.tapo-locked, .tapo-locked * {
+    opacity: 0.5;
+}
+.cal-now {
+    height: 1px;
+    width: 100%;
+    background-color: red;
+    position: relative;
+}
+
+.cal-eventlistwrapper.unavailable {
+    /* cursor: url(../images/icons/unavailable.ani.cur); */
+    /* cursor: url(../images/icons/process-stop.png), default; */
+    /* the following style is not supported in opera.. maybe we should use the above image? */
+    cursor: not-allowed;
+}
