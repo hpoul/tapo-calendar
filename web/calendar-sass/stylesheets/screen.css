@@ -328,123 +328,192 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 .tapo-calendar-calendarview .cal-timelabel {
   border-top: 1px solid #ccc;
 }
-/* line 47, ../sass/_calendarview.scss */
-.tapo-calendar-calendarview .cal-timegrid-hour-half,
+/* line 44, ../sass/_calendarview.scss */
+.tapo-calendar-calendarview .cal-timegrid-hour-half {
+  border-bottom: 1px dashed #ccc;
+}
+/* line 51, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .cal-timegrid-hour-quarter,
+.tapo-calendar-calendarview .cal-timegrid-five-minute,
 .tapo-calendar-calendarview .cal-timegrid-minute-five,
 .tapo-calendar-calendarview .cal-timegrid-minute {
   border-bottom: 1px dotted #ddd;
 }
-/* line 50, ../sass/_calendarview.scss */
+/* line 54, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .cal-timelabel {
   text-align: right;
   color: #888;
   padding-right: 5px;
 }
-/* line 57, ../sass/_calendarview.scss */
+/* line 61, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .cal-timegrid-hour, .tapo-calendar-calendarview .cal-timelabel-wrapper, .tapo-calendar-calendarview .cal-timelabel, .tapo-calendar-calendarview .cal-timegrid-hour-half,
-.tapo-calendar-calendarview .cal-timegrid-minute-five, .tapo-calendar-calendarview .cal-timegrid-minute, .tapo-calendar-calendarview .cal-eventlistwrapper, .tapo-calendar-calendarview .cal-event {
-  transition: height 2s, top 2s;
+.tapo-calendar-calendarview .cal-timegrid-minute-five, .tapo-calendar-calendarview .cal-timegrid-minute, .tapo-calendar-calendarview .cal-eventlistwrapper, .tapo-calendar-calendarview .cal-event, .tapo-calendar-calendarview .cal-timegrid-five-minute {
+  transition: height 1s, top 1s;
 }
-/* line 63, ../sass/_calendarview.scss */
+/* line 66, ../sass/_calendarview.scss */
+.tapo-calendar-calendarview .cal-event.resizing, .tapo-calendar-calendarview .cal-event.moving {
+  transition: none;
+}
+/* line 104, ../sass/_calendarview.scss */
+.tapo-calendar-calendarview .zoom-overviewday {
+  /*
+  .cal-timegrid-hour-quarter {
+    height: $height / 4 - 1;
+  }
+  .cal-timegrid-minute-five {
+    height: $height / 12;
+  }
+  .cal-timegrid-minute {
+    height: $height / 60;
+  }
+  */
+}
+/* line 71, ../sass/_calendarview.scss */
+.tapo-calendar-calendarview .zoom-overviewday .cal-timegrid-hour, .tapo-calendar-calendarview .zoom-overviewday .cal-timelabel-wrapper, .tapo-calendar-calendarview .zoom-overviewday .cal-timelabel {
+  height: 35px;
+}
+/* line 74, ../sass/_calendarview.scss */
+.tapo-calendar-calendarview .zoom-overviewday .cal-timegrid-hour-half {
+  height: 17px;
+}
+/* line 88, ../sass/_calendarview.scss */
+.tapo-calendar-calendarview .zoom-overviewday .cal-timegrid-five-minute {
+  opacity: 0;
+  height: 2px;
+}
+/* line 97, ../sass/_calendarview.scss */
+.tapo-calendar-calendarview .zoom-overviewday .cal-eventlistwrapper {
+  position: relative;
+  height: 864px;
+  cursor: pointer;
+}
+/* line 107, ../sass/_calendarview.scss */
+.tapo-calendar-calendarview .zoom-day {
+  /*
+  .cal-timegrid-hour-quarter {
+    height: $height / 4 - 1;
+  }
+  .cal-timegrid-minute-five {
+    height: $height / 12;
+  }
+  .cal-timegrid-minute {
+    height: $height / 60;
+  }
+  */
+}
+/* line 71, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-day .cal-timegrid-hour, .tapo-calendar-calendarview .zoom-day .cal-timelabel-wrapper, .tapo-calendar-calendarview .zoom-day .cal-timelabel {
   height: 59px;
 }
-/* line 66, ../sass/_calendarview.scss */
+/* line 74, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-day .cal-timegrid-hour-half {
   height: 29px;
 }
-/* line 69, ../sass/_calendarview.scss */
-.tapo-calendar-calendarview .zoom-day .cal-timegrid-hour-quarter {
-  height: 14px;
+/* line 88, ../sass/_calendarview.scss */
+.tapo-calendar-calendarview .zoom-day .cal-timegrid-five-minute {
+  opacity: 0;
+  height: 4px;
 }
-/* line 72, ../sass/_calendarview.scss */
-.tapo-calendar-calendarview .zoom-day .cal-timegrid-minute-five {
-  height: 5px;
-}
-/* line 75, ../sass/_calendarview.scss */
-.tapo-calendar-calendarview .zoom-day .cal-timegrid-minute {
-  height: 1px;
-}
-/* line 78, ../sass/_calendarview.scss */
+/* line 97, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-day .cal-eventlistwrapper {
   position: relative;
   height: 1440px;
   cursor: pointer;
 }
-/* line 63, ../sass/_calendarview.scss */
+/* line 110, ../sass/_calendarview.scss */
+.tapo-calendar-calendarview .zoom-quarter-hour {
+  /*
+  .cal-timegrid-hour-quarter {
+    height: $height / 4 - 1;
+  }
+  .cal-timegrid-minute-five {
+    height: $height / 12;
+  }
+  .cal-timegrid-minute {
+    height: $height / 60;
+  }
+  */
+}
+/* line 71, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-quarter-hour .cal-timegrid-hour, .tapo-calendar-calendarview .zoom-quarter-hour .cal-timelabel-wrapper, .tapo-calendar-calendarview .zoom-quarter-hour .cal-timelabel {
   height: 239px;
 }
-/* line 66, ../sass/_calendarview.scss */
+/* line 74, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-quarter-hour .cal-timegrid-hour-half {
   height: 119px;
 }
-/* line 69, ../sass/_calendarview.scss */
-.tapo-calendar-calendarview .zoom-quarter-hour .cal-timegrid-hour-quarter {
-  height: 59px;
+/* line 88, ../sass/_calendarview.scss */
+.tapo-calendar-calendarview .zoom-quarter-hour .cal-timegrid-five-minute {
+  opacity: 0;
+  height: 19px;
 }
-/* line 72, ../sass/_calendarview.scss */
-.tapo-calendar-calendarview .zoom-quarter-hour .cal-timegrid-minute-five {
-  height: 20px;
-}
-/* line 75, ../sass/_calendarview.scss */
-.tapo-calendar-calendarview .zoom-quarter-hour .cal-timegrid-minute {
-  height: 4px;
-}
-/* line 78, ../sass/_calendarview.scss */
+/* line 97, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-quarter-hour .cal-eventlistwrapper {
   position: relative;
   height: 5760px;
   cursor: pointer;
 }
-/* line 63, ../sass/_calendarview.scss */
+/* line 113, ../sass/_calendarview.scss */
+.tapo-calendar-calendarview .zoom-five-minutes {
+  /*
+  .cal-timegrid-hour-quarter {
+    height: $height / 4 - 1;
+  }
+  .cal-timegrid-minute-five {
+    height: $height / 12;
+  }
+  .cal-timegrid-minute {
+    height: $height / 60;
+  }
+  */
+}
+/* line 71, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-five-minutes .cal-timegrid-hour, .tapo-calendar-calendarview .zoom-five-minutes .cal-timelabel-wrapper, .tapo-calendar-calendarview .zoom-five-minutes .cal-timelabel {
   height: 959px;
 }
-/* line 66, ../sass/_calendarview.scss */
+/* line 74, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-five-minutes .cal-timegrid-hour-half {
   height: 479px;
 }
-/* line 69, ../sass/_calendarview.scss */
-.tapo-calendar-calendarview .zoom-five-minutes .cal-timegrid-hour-quarter {
-  height: 239px;
+/* line 88, ../sass/_calendarview.scss */
+.tapo-calendar-calendarview .zoom-five-minutes .cal-timegrid-five-minute {
+  height: 79px;
+  opacity: 1;
 }
-/* line 72, ../sass/_calendarview.scss */
-.tapo-calendar-calendarview .zoom-five-minutes .cal-timegrid-minute-five {
-  height: 80px;
-}
-/* line 75, ../sass/_calendarview.scss */
-.tapo-calendar-calendarview .zoom-five-minutes .cal-timegrid-minute {
-  height: 16px;
-}
-/* line 78, ../sass/_calendarview.scss */
+/* line 97, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-five-minutes .cal-eventlistwrapper {
   position: relative;
   height: 23040px;
   cursor: pointer;
 }
-/* line 63, ../sass/_calendarview.scss */
+/* line 116, ../sass/_calendarview.scss */
+.tapo-calendar-calendarview .zoom-minute {
+  /*
+  .cal-timegrid-hour-quarter {
+    height: $height / 4 - 1;
+  }
+  .cal-timegrid-minute-five {
+    height: $height / 12;
+  }
+  .cal-timegrid-minute {
+    height: $height / 60;
+  }
+  */
+}
+/* line 71, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-minute .cal-timegrid-hour, .tapo-calendar-calendarview .zoom-minute .cal-timelabel-wrapper, .tapo-calendar-calendarview .zoom-minute .cal-timelabel {
   height: 3839px;
 }
-/* line 66, ../sass/_calendarview.scss */
+/* line 74, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-minute .cal-timegrid-hour-half {
   height: 1919px;
 }
-/* line 69, ../sass/_calendarview.scss */
-.tapo-calendar-calendarview .zoom-minute .cal-timegrid-hour-quarter {
-  height: 959px;
+/* line 88, ../sass/_calendarview.scss */
+.tapo-calendar-calendarview .zoom-minute .cal-timegrid-five-minute {
+  height: 319px;
+  opacity: 1;
 }
-/* line 72, ../sass/_calendarview.scss */
-.tapo-calendar-calendarview .zoom-minute .cal-timegrid-minute-five {
-  height: 320px;
-}
-/* line 75, ../sass/_calendarview.scss */
-.tapo-calendar-calendarview .zoom-minute .cal-timegrid-minute {
-  height: 64px;
-}
-/* line 78, ../sass/_calendarview.scss */
+/* line 97, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-minute .cal-eventlistwrapper {
   position: relative;
   height: 92160px;
