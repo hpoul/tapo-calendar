@@ -50,6 +50,9 @@ class CalendarInteractionTracker {
   int cursorPosOffsetY = -20;
 
   CalendarInteractionTracker(this._calendarView, DivElement calendarview, this._eventListWrapperDiv) {
+    if (_calendarView == null) {
+      throw new Exception('_calendarView must not be null.');
+    }
     _zoomLevel = _calendarView._zoomLevel;
     _eventListWrapperDiv
       ..onMouseMove.listen((MouseEvent e) {
@@ -197,12 +200,14 @@ class CalendarView extends PolymerElement {
   
   get applyAuthorStyles => true;
   
+  CalendarView.created() : super.created();
+  
   void _updateCalcHelpers() {
     
   }
   
-  void inserted() {
-    super.inserted();
+  void enteredView() {
+    super.enteredView();
     _updateCalcHelpers();
     print('we have been inserted.');
     if (day == null) {

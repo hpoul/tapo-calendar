@@ -6,9 +6,10 @@ import 'package:tapo_calendar/calendarview/calendarview.dart';
 @CustomTag('tapo-calendar-eventlist')
 class EventListElement extends PolymerElement {
   
+  EventListElement.created() : super.created();
   
   CalendarView get calendarView =>
-      this.getShadowRoot('tapo-calendar-eventlist').query('tapo-calendar-calendarview').xtag;
+      this.getShadowRoot('tapo-calendar-eventlist').querySelector('tapo-calendar-calendarview');
   
   void clickedZoomIn() {
     calendarView.zoomIn();
@@ -17,9 +18,11 @@ class EventListElement extends PolymerElement {
     calendarView.zoomOut();
   }
   
-  void inserted() {
-    super.inserted();
+  void enteredView() {
+    super.enteredView();
     
+    print("hello world.");
+    print("entered view.. ${calendarView}");
     DateTime date = new DateTime.now();
     DateTime start = new DateTime(date.year, date.month, date.day, 7);
     DateTime end = new DateTime(date.year, date.month, date.day, 7, 45);
