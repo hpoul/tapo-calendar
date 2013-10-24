@@ -10,7 +10,15 @@
         <button on-click="clickedZoomOut">Zoom Out</button>
         <tapo-calendar-calendarview></tapo-calendar-calendarview>
       </template>
-      <script type="application/dart" src="eventlist.dart"></script>
+      <script type="application/dart">
+      import 'package:tapo_calendar/eventlist/eventlist.dart';
+      import 'package:polymer/polymer.dart';
+      
+      @initMethod _init() {
+        Polymer.register('tapo-calendar-eventlist', EventListElement);
+      }
+      </script>
+      <!-- script type="application/dart" src="eventlist.dart"></script -->
     </polymer-element>
   </body>
 </html>

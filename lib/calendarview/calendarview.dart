@@ -218,6 +218,9 @@ class CalendarView extends PolymerElement {
     
     calendarWrapper.style.height = "500px";
     _createHtmlTable();
+    if (_events != null) {
+      _events.forEach((e) { _renderEvent(e); });
+    }
   }
   
   CalendarEvent getEventById(int id) {
@@ -230,8 +233,10 @@ class CalendarView extends PolymerElement {
   }
   
   void set events(List<CalendarEvent> events) {
+    print("We got events. ${events.length}");
     _events = events;
     for (CalendarEvent event in _events) {
+      print ("trying to render event ${event.description}");
       _renderEvent(event);
     }
   }
