@@ -67,6 +67,16 @@
     transition: none;
   }
 
+.cal-event .delete-inline-wrapper {
+  float: right;
+}
+.cal-event .delete-inline {
+  background-image: inline-image("delete_inline.gif");
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+}
+
 @mixin zoomlevel($height) {
   .cal-timegrid-hour, .cal-timelabel-wrapper, .cal-timelabel {
     height: $height - 1;

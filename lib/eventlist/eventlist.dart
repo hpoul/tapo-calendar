@@ -1,3 +1,5 @@
+library eventlist;
+
 import 'package:polymer/polymer.dart';
 import 'dart:html';
 
@@ -21,11 +23,11 @@ class EventListElement extends PolymerElement {
   void enteredView() {
     super.enteredView();
     
-    print("hello world.");
-    print("entered view.. ${calendarView}");
+    /*
     DateTime date = new DateTime.now();
     DateTime start = new DateTime(date.year, date.month, date.day, 7);
     DateTime end = new DateTime(date.year, date.month, date.day, 7, 45);
     calendarView.events = [new CalendarEvent(1, start, end, title, 'uh yeah.')];
+    */
   }
 }

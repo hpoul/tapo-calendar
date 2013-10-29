@@ -130,7 +130,7 @@
 .cal-event-label-val {
     padding: 1px;
 }
-.playground .ui-widget input.cal-event-label {
+input.cal-event-label {
     border: none;
     /* width: 100%; */
     padding: 1px;
@@ -142,10 +142,10 @@
     border: 1px solid transparent;
 }
 
-.playground .ui-widget .cal-event-label-wrapper:hover .cal-event-label, .playground .ui-widget .cal-event-label.editing {
+.cal-event-label-wrapper:hover .cal-event-label, .cal-event-label.editing {
     border: 1px solid gray;
 }
-.playground .ui-widget .cal-event-label.editing {
+.cal-event-label.editing {
     background: white;
     z-index: 100000;
 }
@@ -156,6 +156,7 @@
     height: 7px;
     bottom: 0px;
     cursor: s-resize;
+    opacity: 0.1;
 }
 .ismoving {
     cursor: move;
@@ -163,8 +164,12 @@
 .isresizing {
     cursor: s-resize;
 }
-.cal-event:hover .cal-event-resize, .resizing .cal-event-resize {
+.cal-event:hover .cal-event-resize {
+    opacity: 0.4;
+}
+.cal-event .cal-event-resize:hover, .resizing .cal-event-resize {
     background-color: #ccf;
+    opacity: 1;
 }
 
 .cal-event-title {

@@ -228,7 +228,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   padding: 1px;
 }
 /* line 133, ../sass/_eventstyles.scss */
-.tapo-calendar-calendarview .playground .ui-widget input.cal-event-label {
+.tapo-calendar-calendarview input.cal-event-label {
   border: none;
   /* width: 100%; */
   padding: 1px;
@@ -240,11 +240,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   border: 1px solid transparent;
 }
 /* line 145, ../sass/_eventstyles.scss */
-.tapo-calendar-calendarview .playground .ui-widget .cal-event-label-wrapper:hover .cal-event-label, .tapo-calendar-calendarview .playground .ui-widget .cal-event-label.editing {
+.tapo-calendar-calendarview .cal-event-label-wrapper:hover .cal-event-label, .tapo-calendar-calendarview .cal-event-label.editing {
   border: 1px solid gray;
 }
 /* line 148, ../sass/_eventstyles.scss */
-.tapo-calendar-calendarview .playground .ui-widget .cal-event-label.editing {
+.tapo-calendar-calendarview .cal-event-label.editing {
   background: white;
   z-index: 100000;
 }
@@ -255,35 +255,41 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   height: 7px;
   bottom: 0px;
   cursor: s-resize;
+  opacity: 0.1;
 }
-/* line 160, ../sass/_eventstyles.scss */
+/* line 161, ../sass/_eventstyles.scss */
 .tapo-calendar-calendarview .ismoving {
   cursor: move;
 }
-/* line 163, ../sass/_eventstyles.scss */
+/* line 164, ../sass/_eventstyles.scss */
 .tapo-calendar-calendarview .isresizing {
   cursor: s-resize;
 }
-/* line 166, ../sass/_eventstyles.scss */
-.tapo-calendar-calendarview .cal-event:hover .cal-event-resize, .tapo-calendar-calendarview .resizing .cal-event-resize {
-  background-color: #ccf;
+/* line 167, ../sass/_eventstyles.scss */
+.tapo-calendar-calendarview .cal-event:hover .cal-event-resize {
+  opacity: 0.4;
 }
 /* line 170, ../sass/_eventstyles.scss */
+.tapo-calendar-calendarview .cal-event .cal-event-resize:hover, .tapo-calendar-calendarview .resizing .cal-event-resize {
+  background-color: #ccf;
+  opacity: 1;
+}
+/* line 175, ../sass/_eventstyles.scss */
 .tapo-calendar-calendarview .cal-event-title {
   margin-left: 1em;
 }
-/* line 174, ../sass/_eventstyles.scss */
+/* line 179, ../sass/_eventstyles.scss */
 .tapo-calendar-calendarview .tapo-locked, .tapo-calendar-calendarview .tapo-locked * {
   opacity: 0.5;
 }
-/* line 177, ../sass/_eventstyles.scss */
+/* line 182, ../sass/_eventstyles.scss */
 .tapo-calendar-calendarview .cal-now {
   height: 1px;
   width: 100%;
   background-color: red;
   position: relative;
 }
-/* line 184, ../sass/_eventstyles.scss */
+/* line 189, ../sass/_eventstyles.scss */
 .tapo-calendar-calendarview .cal-eventlistwrapper.unavailable {
   /* cursor: url(../images/icons/unavailable.ani.cur); */
   /* cursor: url(../images/icons/process-stop.png), default; */
@@ -518,4 +524,268 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   position: relative;
   height: 92160px;
   cursor: pointer;
+}
+
+/******************
+   Events ...
+ ******************/
+/* line 6, ../sass/_eventstyles.scss */
+.cal-attendancemarker {
+  position: absolute;
+  /* height: 1px; */
+  /* width: 20px; */
+  right: 5px;
+  /* background-color: red; */
+  background-color: #fee;
+  opacity: 0.8;
+  vertical-align: middle;
+}
+
+/* line 16, ../sass/_eventstyles.scss */
+.cal-attendance-content {
+  padding: 3px;
+}
+
+/* line 19, ../sass/_eventstyles.scss */
+.cal-break {
+  background: none;
+  border-left: 1px dotted red;
+  padding-left: 2em;
+}
+
+/* line 24, ../sass/_eventstyles.scss */
+.cal-sign_out {
+  border-bottom: 1px solid red;
+}
+
+/* line 27, ../sass/_eventstyles.scss */
+.cal-sign_in {
+  border-top: 1px solid red;
+}
+
+/* line 31, ../sass/_eventstyles.scss */
+.cal-event {
+  position: absolute;
+  /* border-top: 1px solid red; */
+  border: 1px solid #009;
+  background-color: #eef;
+  margin-left: 10px;
+  width: 85%;
+  opacity: 0.9;
+  overflow: hidden;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+/* line 42, ../sass/_eventstyles.scss */
+.cal-event-time {
+  font-weight: bold;
+  padding-top: 2px;
+  background-color: #55f;
+  color: white;
+  padding-left: 2px;
+  cursor: move;
+}
+
+/* line 50, ../sass/_eventstyles.scss */
+.cal-event.type-pending, .cal-event.type-pending .cal-event-time, .type-pending .cal-event-resize {
+  opacity: 0.8;
+  cursor: progress;
+}
+
+/* line 54, ../sass/_eventstyles.scss */
+.cal-event.type-inprogress, .cal-event.type-inprogress .cal-event-time, .type-inprogress .cal-event-resize {
+  opacity: 0.5;
+  cursor: progress;
+}
+
+/* line 58, ../sass/_eventstyles.scss */
+#worktrail .cal-event.type-inprogress {
+  border-bottom: none;
+}
+
+/* line 61, ../sass/_eventstyles.scss */
+.cal-theme-red.cal-event {
+  border: 1px solid #900;
+  background-color: #fee;
+}
+
+/* line 65, ../sass/_eventstyles.scss */
+.cal-theme-red .cal-event-time {
+  background-color: #f55;
+}
+
+/* line 68, ../sass/_eventstyles.scss */
+.cal-theme-green.cal-event {
+  border: 1px solid #090;
+  background-color: #efe;
+}
+
+/* line 72, ../sass/_eventstyles.scss */
+.cal-theme-green .cal-event-time {
+  background-color: #006400;
+}
+
+/* line 75, ../sass/_eventstyles.scss */
+.cal-theme-yellow.cal-event {
+  border: 1px solid #990;
+  background-color: #FFFFCC;
+}
+
+/* line 79, ../sass/_eventstyles.scss */
+.cal-theme-yellow .cal-event-time {
+  background-color: #FFD700;
+}
+
+/* line 82, ../sass/_eventstyles.scss */
+.cal-theme-brown.cal-event {
+  border: 1px solid #B8860B;
+  background-color: #FFEBCD;
+}
+
+/* line 86, ../sass/_eventstyles.scss */
+.cal-theme-brown .cal-event-time {
+  background-color: #B8860B;
+}
+
+/* line 91, ../sass/_eventstyles.scss */
+.cal-theme-orange.cal-event {
+  border: 1px solid #f63;
+  background-color: #fc9;
+}
+
+/* line 95, ../sass/_eventstyles.scss */
+.cal-theme-orange .cal-event-time {
+  background-color: #f63;
+}
+
+/* line 98, ../sass/_eventstyles.scss */
+.cal-theme-purple.cal-event {
+  border: 1px solid #6733DD;
+  background-color: #B99AFF;
+}
+
+/* line 102, ../sass/_eventstyles.scss */
+.cal-theme-purple .cal-event-time {
+  background-color: #6733DD;
+}
+
+/* line 105, ../sass/_eventstyles.scss */
+.cal-theme-turquoise.cal-event {
+  border: 1px solid #1A8084;
+  background-color: #46D6DB;
+}
+
+/* line 109, ../sass/_eventstyles.scss */
+.cal-theme-turquoise .cal-event-time {
+  background-color: #1A8084;
+}
+
+/* line 114, ../sass/_eventstyles.scss */
+.cal-event-time a {
+  cursor: pointer;
+}
+
+/* line 117, ../sass/_eventstyles.scss */
+.cal-event-label-wrapper {
+  padding: 5px;
+  padding-right: 10px;
+  height: 100%;
+}
+
+/* line 122, ../sass/_eventstyles.scss */
+.cal-event-label {
+  min-height: 1em;
+  /* padding: 5px; */
+  /* height:100%; */
+  /* background: white; */
+  cursor: text;
+  border: 1px solid transparent;
+}
+
+/* line 130, ../sass/_eventstyles.scss */
+.cal-event-label-val {
+  padding: 1px;
+}
+
+/* line 133, ../sass/_eventstyles.scss */
+input.cal-event-label {
+  border: none;
+  /* width: 100%; */
+  padding: 1px;
+  display: block;
+  margin: 0px;
+  font-family: inherit;
+  background: transparent;
+  width: 100%;
+  border: 1px solid transparent;
+}
+
+/* line 145, ../sass/_eventstyles.scss */
+.cal-event-label-wrapper:hover .cal-event-label, .cal-event-label.editing {
+  border: 1px solid gray;
+}
+
+/* line 148, ../sass/_eventstyles.scss */
+.cal-event-label.editing {
+  background: white;
+  z-index: 100000;
+}
+
+/* line 153, ../sass/_eventstyles.scss */
+.cal-event-resize {
+  position: absolute;
+  width: 100%;
+  height: 7px;
+  bottom: 0px;
+  cursor: s-resize;
+  opacity: 0.1;
+}
+
+/* line 161, ../sass/_eventstyles.scss */
+.ismoving {
+  cursor: move;
+}
+
+/* line 164, ../sass/_eventstyles.scss */
+.isresizing {
+  cursor: s-resize;
+}
+
+/* line 167, ../sass/_eventstyles.scss */
+.cal-event:hover .cal-event-resize {
+  opacity: 0.4;
+}
+
+/* line 170, ../sass/_eventstyles.scss */
+.cal-event .cal-event-resize:hover, .resizing .cal-event-resize {
+  background-color: #ccf;
+  opacity: 1;
+}
+
+/* line 175, ../sass/_eventstyles.scss */
+.cal-event-title {
+  margin-left: 1em;
+}
+
+/* line 179, ../sass/_eventstyles.scss */
+.tapo-locked, .tapo-locked * {
+  opacity: 0.5;
+}
+
+/* line 182, ../sass/_eventstyles.scss */
+.cal-now {
+  height: 1px;
+  width: 100%;
+  background-color: red;
+  position: relative;
+}
+
+/* line 189, ../sass/_eventstyles.scss */
+.cal-eventlistwrapper.unavailable {
+  /* cursor: url(../images/icons/unavailable.ani.cur); */
+  /* cursor: url(../images/icons/process-stop.png), default; */
+  /* the following style is not supported in opera.. maybe we should use the above image? */
+  cursor: not-allowed;
 }
