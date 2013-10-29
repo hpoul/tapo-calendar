@@ -109,7 +109,7 @@ class CalendarInteractionTracker {
             return;
         }
 //        print('moving event.');
-        var y = e.pageY - calendarview.offset.top + calendarview.scrollTop + cursorPosOffsetY;
+        var y = e.page.y - calendarview.offset.top + calendarview.scrollTop + cursorPosOffsetY;
         var quarters = (y / _zoomLevel.timeFrameHeight).floor();
         var minutes = (quarters % _zoomLevel.hourMultiplier) * _zoomLevel.minuteFactor;
         var hours = (quarters ~/ _zoomLevel.hourMultiplier).floor();
@@ -174,7 +174,7 @@ class CalendarInteractionTracker {
           return;
         }
         
-        var y = e.pageY - calendarview.offset.top + calendarview.scrollTop + cursorPosOffsetY;
+        var y = e.page.y - calendarview.offset.top + calendarview.scrollTop + cursorPosOffsetY;
         var quarters = (y / _zoomLevel.timeFrameHeight).floor();
         var minutes = (quarters % _zoomLevel.hourMultiplier) * _zoomLevel.minuteFactor;
         var hours = (quarters ~/ _zoomLevel.hourMultiplier).floor();

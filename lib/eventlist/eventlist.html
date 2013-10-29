@@ -5,8 +5,8 @@
   <body>
     <polymer-element name="tapo-calendar-eventlist">
       <template>
-        <button on-click="clickedZoomIn">Zoom In</button>
-        <button on-click="clickedZoomOut">Zoom Out</button>
+        <button on-click="{{ clickedZoomIn }}">Zoom In</button>
+        <button on-click="{{ clickedZoomOut }}">Zoom Out</button>
         <tapo-calendar-calendarview></tapo-calendar-calendarview>
       </template>
       <script type="application/dart">
