@@ -6,3 +6,4 @@ dependencies:
 #  js: any
 #  unittest: any
   quiver: 0.10.0
+  logging: any

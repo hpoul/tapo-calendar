@@ -3,6 +3,10 @@ library calendarview;
 import 'package:polymer/polymer.dart';
 import 'dart:html';
 import 'package:quiver/iterables.dart';
+import 'package:logging/logging.dart';
+
+
+Logger _logger = new Logger('tapo.calendar.calendarview');
 
 
 class ZoomLevel {
@@ -50,7 +54,6 @@ class EventTheme {
     b = min([255, max([0,b])]);
     g = min([255, max([0,g])]);
     int resultColor = 0x1000000 + r*0x10000 + b*0x100 + g;
-    //print('new color: ${resultColor.toRadixString(16)}');
     return '#${resultColor.toRadixString(16).substring(1)}';
 //    return "";
     /*
@@ -140,7 +143,6 @@ class CalendarInteractionTracker {
           // we must not obstruct any other event...
           var compareEvent = checkObstruction(event);
           if(compareEvent != null) {
-            print('event is obstracting another event.');
             if (compareEvent.start.compareTo(before) > 0) {
               event.start = compareEvent.start.subtract(diff);
               event.end = new DateTime.fromMillisecondsSinceEpoch(compareEvent.start.millisecondsSinceEpoch, isUtc: compareEvent.start.isUtc);
@@ -289,7 +291,7 @@ class CalendarView extends PolymerElement {
   }
   
   @observable @published void set day (DateTime date) {
-    print("setting day to ${_day}");
+    _logger.fine("setting day to ${_day}");
     _day = date;
     _dayStart = new DateTime(date.year, date.month, day.day);
     _dayEnd = _dayStart.add(new Duration(days: 1));
@@ -299,7 +301,7 @@ class CalendarView extends PolymerElement {
   void enteredView() {
     super.enteredView();
     _updateCalcHelpers();
-    print('we have been inserted.');
+    _logger.finer('we have been inserted.');
 //    if (day == null) {
 //      day = new DateTime.now();
 //    }
@@ -323,7 +325,7 @@ class CalendarView extends PolymerElement {
   }
   
   void set events(List<CalendarEvent> events) {
-    print("We got events. ${events.length}");
+    _logger.fine("Events set. ${events.length}");
     _events = events;
     if (day != null) {
       _renderAllEvents();
