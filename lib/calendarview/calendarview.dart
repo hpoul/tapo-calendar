@@ -85,7 +85,7 @@ class CalendarEvent extends Observable {
   @observable DateTime end;
   @observable String title;
   @observable String description;
-  @observable EventTheme theme = EventTheme.RED;
+  @observable EventTheme theme = EventTheme.BLUE;
   
   CalendarEvent(this.id, this.start, this.end, this.title, this.description);
 }
@@ -162,13 +162,19 @@ class CalendarInteractionTracker {
         _calendarView._updateEvent(event, eventdiv);
       })
       ..onMouseUp.listen((MouseEvent e) {
+        CalendarEvent event = null;
         if (_movingEventDiv != null) {
+          event = _calendarView.getEventById(int.parse(_movingEventDiv.attributes['eventid']));
           _movingEventDiv.classes.remove('moving');
           _movingEventDiv = null;
         }
         if (_resizingEventDiv != null) {
+          event = _calendarView.getEventById(int.parse(_resizingEventDiv.attributes['eventid']));
           _resizingEventDiv.classes.remove('resizing');
           _resizingEventDiv = null;
+        }
+        if (event != null && _calendarView.listener != null) {
+          _calendarView.listener.changedEventTimes(event);
         }
       })
       ..onMouseDown.listen((MouseEvent e) {
@@ -248,10 +254,16 @@ class CalendarInteractionTracker {
   }
 }
 
+/**
+ * Simple listener for events. Users don't need to listen on change requests to
+ * CalendarEvent properties, as they are notified in this listener.
+ * TODO: think about what's better.. :-) observing changes in CalendarEvent.xxx seems more dart/polymer-ish
+ */
 abstract class CalendarListener {
   void createdEvent(CalendarEvent event);
   void removedEvent(CalendarEvent event);
   void changedEventTimes(CalendarEvent event);
+  void changedEventDescription(CalendarEvent event);
 }
 
 @CustomTag('tapo-calendar-calendarview')
@@ -508,7 +520,7 @@ class CalendarView extends PolymerElement {
     eventDiv.attributes['eventid'] = '${event.id}';
     var eventTimeDiv = _createAndAppend(eventDiv, '<div class="cal-event-time"><span class="cal-event-time-label"></span></div>');
     var eventLabelWrapperDiv = _createAndAppend(eventDiv, '<div class="cal-event-label-wrapper" />');
-    var eventLabelInput = _createAndAppend(eventLabelWrapperDiv, '<input type="text" class="cal-event-label" />');
+    InputElement eventLabelInput = _createAndAppend(eventLabelWrapperDiv, '<input type="text" class="cal-event-label" />');
     var eventResize = _createAndAppend(eventDiv, '<div class="cal-event-resize" />');
     //        eventtime.append(jQuery('<a style="float: right;" />').append(jQuery('<img src="'+TAPO.STATIC_URL+'saas/images/openerp/listgrid/delete_inline.gif" />')
     var removeLink = _createAndAppend(eventTimeDiv, '<a class="delete-inline-wrapper" />');
@@ -522,10 +534,14 @@ class CalendarView extends PolymerElement {
         return null;
       }
     });
+    eventLabelInput.value = event.description;
     eventLabelInput.onBlur.listen((e){
-      event.description = eventLabelInput.text;
-      // TODO notify listeners?
+      event.description = eventLabelInput.value;
+      _logger.finer('Changed event description to ${eventLabelInput.value}');
       eventLabelInput.classes.remove('editing');
+      if (listener != null) {
+        listener.changedEventDescription(event);
+      }
     });
     eventLabelInput.onKeyDown.listen((KeyboardEvent e) {
       if (e.which == 13) {
@@ -554,6 +570,10 @@ class CalendarView extends PolymerElement {
     _updateEvent(event, eventDiv);
     
     _interactionTracker.trackEvent(event, eventDiv, eventTimeDiv);
+    
+    var changed = () => _updateEvent(event, eventDiv);
+    onPropertyChange(event, #title, changed);
+    onPropertyChange(event, #description, changed);
     
     return eventDiv;
   }
