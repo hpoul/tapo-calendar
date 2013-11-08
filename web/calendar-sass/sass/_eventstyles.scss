@@ -51,11 +51,14 @@
     opacity: 0.8;
     cursor: progress;
 }
-.cal-event.type-inprogress, .cal-event.type-inprogress .cal-event-time, .type-inprogress .cal-event-resize {
+.cal-event.type-inprogress, .cal-event.type-inprogress .cal-event-time {
     opacity: 0.5;
     cursor: progress;
 }
-#worktrail .cal-event.type-inprogress {
+.type-inprogress .cal-event-resize {
+  display: none;
+}
+.tapo-calendar-calendarview .cal-event.type-inprogress {
     border-bottom: none;
 }
 .cal-theme-red.cal-event {
@@ -186,7 +189,7 @@ input.cal-event-label {
     position: relative;
 }
 
-.cal-eventlistwrapper.unavailable {
+.tapo-calendar-calendarview .cal-eventlistwrapper.unavailable {
     /* cursor: url(../images/icons/unavailable.ani.cur); */
     /* cursor: url(../images/icons/process-stop.png), default; */
     /* the following style is not supported in opera.. maybe we should use the above image? */

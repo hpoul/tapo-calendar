@@ -4,6 +4,7 @@ import 'package:polymer/polymer.dart';
 import 'dart:html';
 import 'package:quiver/iterables.dart';
 import 'package:logging/logging.dart';
+import 'dart:async';
 
 
 Logger _logger = new Logger('tapo.calendar.calendarview');
@@ -36,12 +37,18 @@ class ZoomLevel {
 
 class EventTheme {
   final String name;
-  final String baseColor;
+  String baseColor;
+  String selectedBaseColor;
   
-  const EventTheme(this.name, this.baseColor);
+  final String _rawColor;
   
-  String get mainBgColor => _lighten(baseColor, 50);
-  String get selectedBgColor => _lighten(baseColor, 30);
+  EventTheme(this.name, this._rawColor) {
+    this.baseColor = _lighten(_rawColor, 30);
+    this.selectedBaseColor = _rawColor;
+  }
+  
+  String get mainBgColor => _lighten(_rawColor, 50);
+  String get selectedBgColor => _lighten(_rawColor, 30);
   
   String _lighten(String hex, int percent) {
     // http://stackoverflow.com/a/13542669/109219
@@ -67,16 +74,16 @@ class EventTheme {
      */
   }
   
-  static const BLUE = const EventTheme('blue', '#5555ff');
-  static const RED = const EventTheme('red', '#ff5555');
-  static const GREEN = const EventTheme('green', '#006400');
-  static const YELLOW = const EventTheme('yellow', '#FFD700');
-  static const ORANGE = const EventTheme('orange', '#FF6633');
-  static const BROWN = const EventTheme('brown', '#B8860B');
-  static const PURPLE = const EventTheme('purple', '#6733DD');
-  static const TURQUOISE = const EventTheme('torquoise', '#46D6DB');
+  static final BLUE = new EventTheme('blue', '#5555ff');
+  static final RED = new EventTheme('red', '#ff5555');
+  static final GREEN = new EventTheme('green', '#006400');
+  static final YELLOW = new EventTheme('yellow', '#FFD700');
+  static final ORANGE = new EventTheme('orange', '#FF6633');
+  static final BROWN = new EventTheme('brown', '#B8860B');
+  static final PURPLE = new EventTheme('purple', '#6733DD');
+  static final TURQUOISE = new EventTheme('torquoise', '#46D6DB');
   
-  static const List<EventTheme> themes = const [BLUE, RED, GREEN, YELLOW, ORANGE, BROWN, PURPLE, TURQUOISE];
+  static final List<EventTheme> themes = [BLUE, RED, GREEN, YELLOW, ORANGE, BROWN, PURPLE, TURQUOISE];
 }
 
 class CalendarEvent extends Observable {
@@ -86,6 +93,7 @@ class CalendarEvent extends Observable {
   @observable String title;
   @observable String description;
   @observable EventTheme theme = EventTheme.BLUE;
+  @observable bool isInProgress = false;
   
   CalendarEvent(this.id, this.start, this.end, this.title, this.description);
 }
@@ -98,7 +106,7 @@ class CalendarInteractionTracker {
   DivElement _resizingEventDiv;
   DivElement _movingEventDiv;
   ZoomLevel _zoomLevel;
-  int cursorPosOffsetY = -20;
+  int cursorPosOffsetY = 0;
 
   CalendarInteractionTracker(this._calendarView, DivElement calendarview, this._eventListWrapperDiv) {
     if (_calendarView == null) {
@@ -108,20 +116,38 @@ class CalendarInteractionTracker {
     _eventListWrapperDiv
       ..onMouseMove.listen((MouseEvent e) {
         var eventdiv = _movingEventDiv != null ? _movingEventDiv : _resizingEventDiv;
-        if (eventdiv == null) {
+        if (eventdiv == null && !_calendarView._isToday) {
             return;
         }
 //        print('moving event.');
-        var y = e.page.y - calendarview.offset.top + calendarview.scrollTop + cursorPosOffsetY;
+        var y = getRelativeYPos(e, calendarview);
+//        var y = e.page.y - calendarview.offset.top + calendarview.scrollTop + cursorPosOffsetY;
         var quarters = (y / _zoomLevel.timeFrameHeight).floor();
         var minutes = (quarters % _zoomLevel.hourMultiplier) * _zoomLevel.minuteFactor;
         var hours = (quarters ~/ _zoomLevel.hourMultiplier).floor();
         
+        if (eventdiv == null) {
+          if (!_calendarView._allowEditing(hours, minutes)) {
+            _eventListWrapperDiv.classes.add('unavailable');
+          } else {
+            _eventListWrapperDiv.classes.remove('unavailable');
+          }
+          return;
+        }
+        
         CalendarEvent event = _calendarView.getEventById(int.parse(eventdiv.attributes['eventid']));
+        
+        DateTime now = _calendarView._floorToMinute(new DateTime.now());
 
         if (_resizingEventDiv != null) {
           // user is resizing event.
           event.end = new DateTime(event.end.year, event.end.month, event.end.day, hours, minutes);
+          if (_calendarView._onlyHistoryEdit) {
+            if (event.end.isAfter(now)) {
+              event.end = now;
+            }
+          }
+          
           Duration diff = event.end.difference(event.start);
           if (diff.inSeconds < _zoomLevel.minuteFactor * 60) {
             event.end = event.start.add(new Duration(minutes: _zoomLevel.minuteFactor));
@@ -139,6 +165,12 @@ class CalendarInteractionTracker {
           
           event.start = new DateTime(before.year, before.month, before.day, hours, minutes);
           event.end = event.start.add(diff);
+          if (_calendarView._onlyHistoryEdit) {
+            if (event.end.isAfter(now)) {
+              event.end = now;
+              event.start = now.subtract(diff);
+            }
+          }
           
           // we must not obstruct any other event...
           var compareEvent = checkObstruction(event);
@@ -182,10 +214,16 @@ class CalendarInteractionTracker {
           return;
         }
         
-        var y = e.page.y - calendarview.offset.top + calendarview.scrollTop + cursorPosOffsetY;
+        var y = getRelativeYPos(e, calendarview);
         var quarters = (y / _zoomLevel.timeFrameHeight).floor();
         var minutes = (quarters % _zoomLevel.hourMultiplier) * _zoomLevel.minuteFactor;
         var hours = (quarters ~/ _zoomLevel.hourMultiplier).floor();
+        
+        if (!_calendarView._allowEditing(hours, minutes)) {
+          e.stopPropagation(); e.preventDefault();
+          // TODO tell the user, that he can't add events in the future?
+          return;
+        }
         
         var date = new DateTime.now();
         var start = new DateTime(date.year, date.month, date.day, hours, minutes);
@@ -205,6 +243,16 @@ class CalendarInteractionTracker {
         _calendarView.updateSelectedEvent(newEvent);
         startResizing(null, newEventDiv);
       });
+  }
+  
+  int getRelativeYPos(MouseEvent e, DivElement calendarview) {
+    Element tmp = calendarview;
+    int offsetTop = 0;
+    while (tmp != null) {
+      offsetTop += tmp.offset.top;
+      tmp = tmp.offsetParent;
+    }
+    return e.page.y - offsetTop + calendarview.scrollTop + cursorPosOffsetY;
   }
   
   void startResizing(MouseEvent e, DivElement eventDiv) {
@@ -236,11 +284,17 @@ class CalendarInteractionTracker {
   
   void trackEvent(CalendarEvent event, DivElement eventDiv, DivElement eventTimeDiv) {
     eventDiv.onMouseDown.listen((MouseEvent e){
+      if (event.isInProgress) {
+        return;
+      }
       _calendarView.updateSelectedEvent(event);
     });
     eventTimeDiv.onMouseDown.listen((MouseEvent e) {
       e.preventDefault();
       e.stopPropagation();
+      if (event.isInProgress) {
+        return;
+      }
       _calendarView.updateSelectedEvent(event);
       eventDiv.classes.add('moving');
       _movingEventDiv = eventDiv;
@@ -248,6 +302,9 @@ class CalendarInteractionTracker {
     eventDiv.querySelector('.cal-event-resize').onMouseDown.listen((MouseEvent e) {
       e.preventDefault();
       e.stopPropagation();
+      if (event.isInProgress) {
+        return;
+      }
       _calendarView.updateSelectedEvent(event);
       startResizing(e, eventDiv);
     });
@@ -275,6 +332,12 @@ class CalendarView extends PolymerElement {
   List<CalendarEvent> _events = [];
   @observable @published CalendarEvent selectedevent = null;
   CalendarListener listener = null;
+  bool _isToday;
+  bool _isFuture;
+  Timer _updateNowTimer;
+  /// defines that only history can be modified, not the future.
+  bool _onlyHistoryEdit = true;
+  DivElement _dayColumn = null;
   
   CalendarInteractionTracker _interactionTracker;
   
@@ -304,11 +367,18 @@ class CalendarView extends PolymerElement {
   
   @observable @published void set day (DateTime date) {
     _logger.fine("setting day to ${_day}");
+    print("setting day to ${_day}");
     _day = date;
     _dayStart = new DateTime(date.year, date.month, day.day);
     _dayEnd = _dayStart.add(new Duration(days: 1));
+    var now = new DateTime.now();
+    _isToday = now.year == _day.year && now.month == _day.month && now.day == _day.day;
+    _isFuture = now.isBefore(_dayStart);
+    _updateNowRestrictions();
+    _updateNowLine();
   }
   @observable @published DateTime get day => _day;
+  bool get isToday => _isToday;
   
   void enteredView() {
     super.enteredView();
@@ -381,6 +451,7 @@ class CalendarView extends PolymerElement {
     for(CalendarEvent event in _events) {
       _updateEvent(event, wrapper.querySelector('div.cal-event[eventid="${event.id}"]'));
     }
+    _updateNowLine();
   }
   
   void _createTimeGrid(DivElement timegrid) {
@@ -411,11 +482,10 @@ class CalendarView extends PolymerElement {
     return el;
   }
   
-  Element get calendarWrapper => getShadowRoot('tapo-calendar-calendarview').query('.calendarview-wrapper');
+  Element get calendarWrapper => getShadowRoot('tapo-calendar-calendarview').querySelector('.calendarview-wrapper');
   
   void _createHtmlTable() {
     var wrapper = calendarWrapper;
-    wrapper.append(new Element.html('<div>It works.</div>'));
    
     // table consists of two rows and two columns
     // first row, second column contains time grid (background)
@@ -435,7 +505,61 @@ class CalendarView extends PolymerElement {
 
 
     wrapper.append(table);
-    _interactionTracker = new CalendarInteractionTracker(this, wrapper.parent, contentRow.query('.cal-eventlistwrapper'));
+    _interactionTracker = new CalendarInteractionTracker(this, wrapper.parent, contentRow.querySelector('.cal-eventlistwrapper'));
+    _updateNowRestrictions();
+    _updateNowLine();
+  }
+  
+  void _updateNowRestrictions() {
+    var listWrapper = calendarWrapper.querySelector('.cal-eventlistwrapper');
+    if (listWrapper == null) {
+      _logger.finer('listWrapper not defined. doing nothing.');
+      return;
+    }
+    _logger.fine('updating now restrictions.');
+    
+    if (_isFuture && !_isToday) {
+      listWrapper.classes.add('unavailable');
+    } else {
+      listWrapper.classes.remove('unavailable');
+    }
+  }
+  
+  void _updateNowLine([Timer timer = null]) {
+    var listWrapper = calendarWrapper;
+    if (listWrapper == null) {
+      return;
+    }
+    var calNow = listWrapper.querySelector('.cal-now');
+    if (!_isToday) {
+      if (calNow != null) {
+        calNow.remove();
+      }
+      return;
+    }
+    if (calNow == null) {
+      var eventListWrapper = listWrapper.querySelector('.cal-eventlistwrapper');
+      if (eventListWrapper == null) {
+        return;
+      }
+      calNow = _createAndAppend(eventListWrapper, '<div class="cal-now" />');
+    }
+    var now = new DateTime.now();
+//    var quarters = now.getHours() * TAPO.CalendarView.HOURMULTIPLIER + now.getMinutes() / TAPO.CalendarView.MINUTEFACTOR;
+    
+    var quarters = now.hour * _zoomLevel.hourMultiplier + now.minute ~/ _zoomLevel.minuteFactor;
+    calNow.style.top = '${quarters * _zoomLevel.timeFrameHeight}px';
+    if (_updateNowTimer == null || !_updateNowTimer.isActive) {
+      _updateNowTimer = new Timer(const Duration(seconds: 2), _updateNowLine);
+    }
+    
+    try {
+      var event = _events.where((e) => e.isInProgress).first;
+      event.end = now;
+      _updateEvent(event);
+    } catch (e) {
+      // no in progress event. ignore it.
+    }
   }
   
   String _formatTimeSegment(int segment) {
@@ -443,6 +567,16 @@ class CalendarView extends PolymerElement {
       return '0${segment}';
     }
     return segment.toString();
+  }
+  
+  bool _allowEditing(int hours, int minutes) {
+    if (!_isToday) {
+      return true;
+    }
+    // TODO: i'm pretty sure it would be faster to just compare the integers :)
+    var tmpNow = new DateTime.now();
+    var tmpCmp = new DateTime(tmpNow.year, tmpNow.month, tmpNow.day, hours, minutes);
+    return tmpCmp.isBefore(tmpNow);
   }
   
   void _createTimeColumn(Element contentRow) {
@@ -477,6 +611,7 @@ class CalendarView extends PolymerElement {
   void _createEventsColumn(TableRowElement contentRow) {
     var eventsColumn = _createAndAppend(contentRow, '<td class="cal-datescol" />');
     var dayColumn = _createAndAppend(eventsColumn, '<div class="cal-eventlistwrapper" />');
+    _dayColumn = dayColumn;
     dayColumn.id = "daycol-${_formatDate(day)}";
   }
   
@@ -489,14 +624,16 @@ class CalendarView extends PolymerElement {
     var eventLabelDiv = eventDiv.querySelector('.cal-event-label');
     var eventResizeDiv = eventDiv.querySelector('.cal-event-resize');
     
-    eventDiv.style.borderColor = event.theme.baseColor;
     if (event == selectedevent) {
+      eventDiv.style.borderColor = event.theme.selectedBaseColor;
       eventDiv.style.backgroundColor = event.theme.selectedBgColor;
+      eventTimeDiv.style.backgroundColor = event.theme.selectedBaseColor;
     } else {
+      eventDiv.style.borderColor = event.theme.baseColor;
       eventDiv.style.backgroundColor = event.theme.mainBgColor;
+      eventTimeDiv.style.backgroundColor = event.theme.baseColor;
     }
     eventResizeDiv.style.backgroundColor = event.theme.baseColor;
-    eventTimeDiv.style.backgroundColor = event.theme.baseColor;
     
     var startDate = event.start;
     if (startDate.compareTo(_dayStart) < 0) {
@@ -513,11 +650,18 @@ class CalendarView extends PolymerElement {
 //    eventTitleDiv.text = event.title;
   }
   
+  DateTime _floorToMinute(DateTime date) {
+    return new DateTime(date.year, date.month, date.day, date.hour, date.minute);
+  }
+  
   DivElement _renderEvent(CalendarEvent event) {
-    DivElement dayColumn = calendarWrapper.query('#daycol-${_formatDate(day)}');
+    DivElement dayColumn = _dayColumn; //calendarWrapper.querySelector('#daycol-${_formatDate(day)}');
     
     var eventDiv = _createAndAppend(dayColumn, '<div class="cal-event" />');
     eventDiv.attributes['eventid'] = '${event.id}';
+    if (event.isInProgress) {
+      eventDiv.classes.add('type-inprogress');
+    }
     var eventTimeDiv = _createAndAppend(eventDiv, '<div class="cal-event-time"><span class="cal-event-time-label"></span></div>');
     var eventLabelWrapperDiv = _createAndAppend(eventDiv, '<div class="cal-event-label-wrapper" />');
     InputElement eventLabelInput = _createAndAppend(eventLabelWrapperDiv, '<input type="text" class="cal-event-label" />');
@@ -548,24 +692,28 @@ class CalendarView extends PolymerElement {
         eventLabelInput.blur();
       }
     });
-    removeIcon.onMouseDown.listen((e) {
-      e.preventDefault();
-      e.stopPropagation();
-    });
-    removeIcon.onClick.listen((e){
-      print('clicked removeLink.');
-      e.preventDefault();
-      e.stopPropagation();
-      _events.remove(event);
-      if (selectedevent == event) {
-        updateSelectedEvent(null);
-      }
-      eventDiv.remove();
-
-      if (listener != null) {
-        listener.removedEvent(event);
-      }
-    });
+    if (event.isInProgress) {
+      removeLink.remove();
+    } else {
+      removeIcon.onMouseDown.listen((e) {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+      removeIcon.onClick.listen((e){
+        print('clicked removeLink.');
+        e.preventDefault();
+        e.stopPropagation();
+        _events.remove(event);
+        if (selectedevent == event) {
+          updateSelectedEvent(null);
+        }
+        eventDiv.remove();
+  
+        if (listener != null) {
+          listener.removedEvent(event);
+        }
+      });
+    }
     
     _updateEvent(event, eventDiv);
     
