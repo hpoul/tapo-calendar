@@ -225,9 +225,10 @@ class CalendarInteractionTracker {
           return;
         }
         
-        var date = new DateTime.now();
+        var date = _calendarView._day;
         var start = new DateTime(date.year, date.month, date.day, hours, minutes);
         var end = start.add(new Duration(minutes: _zoomLevel.minuteFactor));
+        _logger.info('Creating new event at ${start}');
         CalendarEvent newEvent = new CalendarEvent(_calendarView._events.length+2, start, end, '', '');
         
         if (checkObstruction(newEvent) != null) {
@@ -366,9 +367,8 @@ class CalendarView extends PolymerElement {
   }
   
   @observable @published void set day (DateTime date) {
-    _logger.fine("setting day to ${_day}");
-    print("setting day to ${_day}");
     _day = date;
+    _logger.fine("setting day to ${_day}");
     _dayStart = new DateTime(date.year, date.month, day.day);
     _dayEnd = _dayStart.add(new Duration(days: 1));
     var now = new DateTime.now();
@@ -556,6 +556,9 @@ class CalendarView extends PolymerElement {
     try {
       var event = _events.where((e) => e.isInProgress).first;
       event.end = now;
+      if (event.end.difference(event.start).inMinutes < 15) {
+        event.end = event.start.add(new Duration(minutes: 15));
+      }
       _updateEvent(event);
     } catch (e) {
       // no in progress event. ignore it.
@@ -618,6 +621,9 @@ class CalendarView extends PolymerElement {
   void _updateEvent(CalendarEvent event, [DivElement eventDiv = null]) {
     if (eventDiv == null) {
       eventDiv = calendarWrapper.querySelector('div.cal-event[eventid="${event.id}"]');
+      if (eventDiv == null) {
+        _logger.severe('Unable to find event div for event id ${event.id}');
+      }
     }
     var eventTimeDiv = eventDiv.querySelector('.cal-event-time');
     var eventTimeLabel = eventTimeDiv.querySelector('.cal-event-time-label');
