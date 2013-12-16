@@ -9,3 +9,6 @@ dependencies:
 #  unittest: any
   quiver: 0.10.0
   logging: any
+transformers:
+- polymer:
+    entry_points: []
