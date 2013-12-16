@@ -339,13 +339,18 @@ class CalendarView extends PolymerElement {
   /// defines that only history can be modified, not the future.
   bool _onlyHistoryEdit = true;
   DivElement _dayColumn = null;
+  @observable @published int count = 0;
   
   CalendarInteractionTracker _interactionTracker;
   
   
   get applyAuthorStyles => true;
   
-  CalendarView.created() : super.created();
+  CalendarView.created() : super.created() {
+    onPropertyChange(this, #selectedevent, () {
+      print('CalendarView: onPropertyChange for selectedevent.');
+    });
+  }
   
   void _updateCalcHelpers() {
     
@@ -356,8 +361,10 @@ class CalendarView extends PolymerElement {
       // nothing to do..
       return;
     }
+    print('changed selectedevent');
     var oldEvent = selectedevent;
     selectedevent = event;
+    count++;
     if (oldEvent != null) {
       _updateEvent(oldEvent, null);
     }
