@@ -141,7 +141,8 @@ class CalendarInteractionTracker {
 
         if (_resizingEventDiv != null) {
           // user is resizing event.
-          event.end = new DateTime(event.end.year, event.end.month, event.end.day, hours, minutes);
+          var today = _calendarView._day;
+          event.end = new DateTime(today.year, today.month, today.day, hours, minutes);
           if (_calendarView._onlyHistoryEdit) {
             if (event.end.isAfter(now)) {
               event.end = now;
