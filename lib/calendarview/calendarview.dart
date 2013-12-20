@@ -378,7 +378,7 @@ class CalendarView extends PolymerElement {
     _day = date;
     _logger.fine("setting day to ${_day}");
     _dayStart = new DateTime(date.year, date.month, day.day);
-    _dayEnd = _dayStart.add(new Duration(days: 1));
+    _dayEnd = _dayStart.add(const Duration(days: 1)).subtract(const Duration(seconds: 1));
     var now = new DateTime.now();
     _isToday = now.year == _day.year && now.month == _day.month && now.day == _day.day;
     _isFuture = now.isBefore(_dayStart);
@@ -649,12 +649,10 @@ class CalendarView extends PolymerElement {
     }
     eventResizeDiv.style.backgroundColor = event.theme.baseColor;
     
-    var startDate = event.start;
-    if (startDate.compareTo(_dayStart) < 0) {
-      startDate = _dayStart;
-    }
+    var startDate = max([event.start, _dayStart]);
+    var endDate = min([event.end, _dayEnd]);
     var quarters = startDate.hour * _zoomLevel.hourMultiplier + startDate.minute ~/ _zoomLevel.minuteFactor;
-    var endquarters = event.end.hour * _zoomLevel.hourMultiplier + event.end.minute ~/ _zoomLevel.minuteFactor;
+    var endquarters = endDate.hour * _zoomLevel.hourMultiplier + endDate.minute ~/ _zoomLevel.minuteFactor;
     
     eventDiv.style.top = '${quarters * _zoomLevel.timeFrameHeight}px';
     eventDiv.style.height = '${(endquarters - quarters) * _zoomLevel.timeFrameHeight}px';

@@ -1,5 +1,5 @@
 name:  tapo_calendar
-version: 0.0.1+3
+version: 0.0.1+4
 author: Herbert Poul <h.poul@tapo.at>
 description:  A simple day-view calendar implementation for polymer.
 
