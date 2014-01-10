@@ -42,8 +42,10 @@ class EventTheme {
   
   final String _rawColor;
   
-  EventTheme(this.name, this._rawColor) {
-    this.baseColor = _lighten(_rawColor, 30);
+  EventTheme(this.name, this._rawColor, [this.baseColor = null]) {
+    if (this.baseColor == null) {
+      this.baseColor = _lighten(_rawColor, 30);
+    }
     this.selectedBaseColor = _rawColor;
   }
   
@@ -77,7 +79,7 @@ class EventTheme {
   static final BLUE = new EventTheme('blue', '#5555ff');
   static final RED = new EventTheme('red', '#ff5555');
   static final GREEN = new EventTheme('green', '#006400');
-  static final YELLOW = new EventTheme('yellow', '#CCAD00');
+  static final YELLOW = new EventTheme('yellow', '#a6a600', '#d4d400');
   static final ORANGE = new EventTheme('orange', '#FF6633');
   static final BROWN = new EventTheme('brown', '#B8860B');
   static final PURPLE = new EventTheme('purple', '#6733DD');
