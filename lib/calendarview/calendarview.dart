@@ -77,7 +77,7 @@ class EventTheme {
   static final BLUE = new EventTheme('blue', '#5555ff');
   static final RED = new EventTheme('red', '#ff5555');
   static final GREEN = new EventTheme('green', '#006400');
-  static final YELLOW = new EventTheme('yellow', '#FFD700');
+  static final YELLOW = new EventTheme('yellow', '#CCAD00');
   static final ORANGE = new EventTheme('orange', '#FF6633');
   static final BROWN = new EventTheme('brown', '#B8860B');
   static final PURPLE = new EventTheme('purple', '#6733DD');
