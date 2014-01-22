@@ -1,8 +1,24 @@
 /* Must be included by calling script. */
 
+$animlength: 1s;
+
 .tapo-calendar-calendarview {
   @import "eventstyles";
   overflow-y: scroll;
+  
+  &.inzoomanimation {
+    overflow-y: hidden;
+  }
+  .calendarview-wrapper {
+    position: relative;
+  }
+  &.inzoomanimation .calendarview-wrapper {
+    position: relative;
+    transition: top $animlength;
+  }
+  &.inzoomanimation .cal-now {
+    display: none;
+  }
 
 .cal-wrapper {
     overflow: hidden;
@@ -60,7 +76,7 @@
   .cal-timegrid-hour, .cal-timelabel-wrapper, .cal-timelabel, .cal-timegrid-hour-half,
   .cal-timegrid-minute-five, .cal-timegrid-minute, .cal-eventlistwrapper, .cal-event, .cal-timegrid-five-minute {
     //transition: height 0.5s;
-    transition: height 1s, top 1s;
+    transition: height $animlength, top $animlength;
   }
   
   .cal-event.resizing, .cal-event.moving {

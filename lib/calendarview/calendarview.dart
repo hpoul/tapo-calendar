@@ -33,6 +33,14 @@ class ZoomLevel {
   static final MINUTE = new ZoomLevel('zoom-minute', 60 * 64, 1);
   
   static final List<ZoomLevel> values = [OVERVIEWDAY, DAY, QUARTER_HOUR, FIVE_MINUTES, MINUTE];
+  
+  
+  int posToMinutes(int pos) {
+    return pos ~/ timeFrameHeight * minuteFactor;
+  }
+  int minutesToPos(int minutes) {
+    return (minutes / minuteFactor * timeFrameHeight).floor();
+  }
 }
 
 class EventTheme {
@@ -452,16 +460,44 @@ class CalendarView extends PolymerElement {
   
   void updateZoomLevel(ZoomLevel level) {
     var wrapper = calendarWrapper;
+    if (wrapper.parent.classes.contains('inzoomanimation')) {
+      return;
+    }
+    var scrollPos = wrapper.parent.scrollTop;
+    var height = 500;
+    int centerMinutes = _zoomLevel.posToMinutes(scrollPos + (height ~/ 2));
+    wrapper.style.top = '-${scrollPos}px';
+    wrapper.parent.scrollTop = 0;
+    wrapper.parent.classes.add('inzoomanimation');
     wrapper.classes
       ..remove(_zoomLevel.cssclass)
       ..add(level.cssclass);
     _zoomLevel = level;
     _interactionTracker._zoomLevel = _zoomLevel;
     _updateCalcHelpers();
+    
+    int newCenterPos = _zoomLevel.minutesToPos(centerMinutes);
+    int newScrollPos = max([newCenterPos - height ~/ 2, 0]);
+    wrapper.style.top = "-${newScrollPos}px";
+    print("Old pos: ${scrollPos} - newPos: ${newScrollPos}");
+    StreamSubscription subscription = null;
+    _updateNowTimer.cancel();
+    var nowLine = wrapper.querySelector('.cal-now');
+    if (nowLine != null) {
+      nowLine.remove();
+    }
+    subscription = wrapper.onTransitionEnd.listen((event) {
+      print('we got transitionend event. top: ${wrapper.style.top} / newScrollPos: ${newScrollPos} / oldScrollPos: ${scrollPos} / current scrollTop: ${wrapper.parent.scrollTop} ');
+      wrapper.parent.classes.remove('inzoomanimation');
+      wrapper.style.top = '0px';
+      wrapper.parent.scrollTop = newScrollPos;
+      _updateNowLine();
+      subscription.cancel();
+    });
+    
     for(CalendarEvent event in _events) {
       _updateEvent(event, wrapper.querySelector('div.cal-event[eventid="${event.id}"]'));
     }
-    _updateNowLine();
   }
   
   void _createTimeGrid(DivElement timegrid) {
