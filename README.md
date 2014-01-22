@@ -2,8 +2,8 @@ Simple calender view implementation based on Dart + Polymer.
 
 # Demo
 
-Live Demo: http://hpoul.github.io/tapo-calendar-example
-Demo Repository: https://github.com/hpoul/tapo-calendar-example
+* Live Demo: http://hpoul.github.io/tapo-calendar-example
+* Demo Repository: https://github.com/hpoul/tapo-calendar-example
 
 This is how it looks like inside of [WorkTrail (Time Tracking application)](https://worktrail.net/) for
 which we developed this calendar component:
