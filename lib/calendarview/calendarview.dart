@@ -814,7 +814,6 @@ class CalendarView extends PolymerElement {
     var indicatorDiv = _createAndAppend(eventDiv, '<div class="indicator" />');
     var tooltipDiv = _createAndAppend(eventDiv, '<div class="cal-tooltip" />');
     eventDiv.attributes['annotationid'] = '${annotation.id}';
-    eventDiv.title = annotation.title;
     tooltipDiv.text = '${_formatTimeShort(annotation.start)}: ${annotation.title}';
     
     _updateAnnotation(annotation, eventDiv);
