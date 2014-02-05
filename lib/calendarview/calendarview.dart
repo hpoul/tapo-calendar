@@ -452,7 +452,7 @@ class CalendarView extends PolymerElement {
     this.getShadowRoot('tapo-calendar-calendarview')
       .querySelectorAll('.cal-annotation')
         .forEach((Element el) => el.remove());
-    _annotations.forEach((event) => _renderAnnotation(event));
+    _annotations.forEach((event) { _renderAnnotation(event); });
   }
   
   void zoomIn() {
@@ -802,13 +802,12 @@ class CalendarView extends PolymerElement {
 //    var endDate = min([annotation.end, _dayEnd]);
 //    var endquarters = endDate.hour * _zoomLevel.hourMultiplier + endDate.minute ~/ _zoomLevel.minuteFactor;
     
-    print("updating annotation ..${quarters * _zoomLevel.timeFrameHeight}px;");
     eventDiv.style.top = '${quarters * _zoomLevel.timeFrameHeight}px';
 //    eventDiv.style.height = '${(endquarters - quarters) * _zoomLevel.timeFrameHeight}px';
   }
   
   
-  void _renderAnnotation(CalendarEvent annotation) {
+  DivElement _renderAnnotation(CalendarEvent annotation) {
     DivElement dayColumn = _dayColumn; //calendarWrapper.querySelector('#daycol-${_formatDate(day)}');
     
     var eventDiv = _createAndAppend(dayColumn, '<div class="cal-annotation" />');
