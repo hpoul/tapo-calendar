@@ -342,6 +342,8 @@ class CalendarView extends PolymerElement {
   DateTime _dayEnd;
   ZoomLevel _zoomLevel = ZoomLevel.DAY;
   List<CalendarEvent> _events = [];
+  /// calendar events which are just shown as "annotations" (small dots on the calendar.)
+  List<CalendarEvent> _annotations = [];
   @observable @published CalendarEvent selectedevent = null;
   CalendarListener listener = null;
   bool _isToday;
@@ -432,11 +434,25 @@ class CalendarView extends PolymerElement {
     }
   }
   
+  void set annotations(List<CalendarEvent> annotations) {
+    _annotations = annotations;
+    if (day != null) {
+      _renderAllAnnotations();
+    }
+  }
+  
   void _renderAllEvents() {
     this.getShadowRoot('tapo-calendar-calendarview')
       .querySelectorAll(".cal-event")
         .forEach((Element el) => el.remove());
     _events.forEach((event) => _renderEvent(event));
+  }
+  
+  void _renderAllAnnotations() {
+    this.getShadowRoot('tapo-calendar-calendarview')
+      .querySelectorAll('.cal-annotation')
+        .forEach((Element el) => el.remove());
+    _annotations.forEach((event) => _renderAnnotation(event));
   }
   
   void zoomIn() {
@@ -498,6 +514,10 @@ class CalendarView extends PolymerElement {
     for(CalendarEvent event in _events) {
       _updateEvent(event, wrapper.querySelector('div.cal-event[eventid="${event.id}"]'));
     }
+    _annotations.forEach((annotation) =>
+        _updateAnnotation(
+            annotation,
+            wrapper.querySelector('div.cal-annotation[annotationid="${annotation.id}"]')));
   }
   
   void _createTimeGrid(DivElement timegrid) {
@@ -775,4 +795,32 @@ class CalendarView extends PolymerElement {
     
     return eventDiv;
   }
+  
+  void _updateAnnotation(CalendarEvent annotation, DivElement eventDiv) {
+    var startDate = max([annotation.start, _dayStart]);
+    var quarters = startDate.hour * _zoomLevel.hourMultiplier + startDate.minute ~/ _zoomLevel.minuteFactor;
+//    var endDate = min([annotation.end, _dayEnd]);
+//    var endquarters = endDate.hour * _zoomLevel.hourMultiplier + endDate.minute ~/ _zoomLevel.minuteFactor;
+    
+    print("updating annotation ..${quarters * _zoomLevel.timeFrameHeight}px;");
+    eventDiv.style.top = '${quarters * _zoomLevel.timeFrameHeight}px';
+//    eventDiv.style.height = '${(endquarters - quarters) * _zoomLevel.timeFrameHeight}px';
+  }
+  
+  
+  void _renderAnnotation(CalendarEvent annotation) {
+    DivElement dayColumn = _dayColumn; //calendarWrapper.querySelector('#daycol-${_formatDate(day)}');
+    
+    var eventDiv = _createAndAppend(dayColumn, '<div class="cal-annotation" />');
+    var indicatorDiv = _createAndAppend(eventDiv, '<div class="indicator" />');
+    var tooltipDiv = _createAndAppend(eventDiv, '<div class="cal-tooltip" />');
+    eventDiv.attributes['annotationid'] = '${annotation.id}';
+    eventDiv.title = annotation.title;
+    tooltipDiv.text = '${_formatTimeShort(annotation.start)}: ${annotation.title}';
+    
+    _updateAnnotation(annotation, eventDiv);
+    
+    return eventDiv;
+  }
+
 }

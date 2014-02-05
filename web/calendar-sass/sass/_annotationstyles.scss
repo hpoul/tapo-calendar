@@ -1,0 +1,27 @@
+.cal-annotation {
+  position: absolute;
+  left: -55px;
+  top: -7px;
+}
+.cal-annotation .indicator {
+  width: 10px;
+  height: 10px;
+  border: 4px solid orange;
+  border-radius: 10px;
+  background-color: white;
+  position: relative;
+}
+.cal-annotation:hover .cal-tooltip {
+  display: block;
+}
+.cal-annotation .cal-tooltip {
+  z-index: 1;
+  position: relative;
+  display: none;
+  background-color: white;
+  top: -23px;
+  left: 25px;
+  padding: 7px;
+  border-radius: 5px;
+  border: 2px solid orange;
+}
