@@ -715,7 +715,16 @@ class CalendarView extends PolymerElement {
     eventDiv.style.top = '${quarters * _zoomLevel.timeFrameHeight}px';
     eventDiv.style.height = '${(endquarters - quarters) * _zoomLevel.timeFrameHeight}px';
     
-    eventTimeLabel.text = '${_formatTimeShort(event.start)} - ${_formatTimeShort(event.end)} - ${event.title}';
+    String startStr = _formatTimeShort(event.start);
+    String endStr = _formatTimeShort(event.end);
+    if (event.start.isBefore(_dayStart)) {
+      startStr = '${_formatDate(event.start)} ${startStr}';
+    }
+    if (event.end.isAfter(_dayEnd)) {
+      endStr = '${_formatDate(event.start)} ${endStr}';
+    }
+    
+    eventTimeLabel.text = '${startStr} - ${endStr} - ${event.title}';
 //    var eventTitleDiv = _createAndAppend(eventTimeDiv, '<span class="cal-event-title" />');
 //    eventTitleDiv.text = event.title;
   }
