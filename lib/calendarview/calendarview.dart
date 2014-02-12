@@ -104,6 +104,7 @@ class CalendarEvent extends Observable {
   @observable String description;
   @observable EventTheme theme = EventTheme.BLUE;
   @observable bool isInProgress = false;
+  int _marginLeft = 0;
   
   CalendarEvent(this.id, this.start, this.end, this.title, this.description);
 }
@@ -436,6 +437,35 @@ class CalendarView extends PolymerElement {
   
   void set annotations(List<CalendarEvent> annotations) {
     _annotations = annotations;
+    // make sure annotations are ordered by time, and see if there are any obstructions.
+    _annotations.sort((a, b) => a.start.compareTo(b.start));
+
+    // we now have to check if some annotations are at the same time as others.
+    var annotationStack = new List<CalendarEvent>();
+    for (CalendarEvent a in _annotations) {
+      if (annotationStack.isEmpty) {
+        annotationStack.add(a);
+        continue;
+      }
+      
+      int i = 0;
+      bool foundPosition = false;
+      // each entry in the stack is one "column" now we simply check where we have enough room, and assign it..
+      for (CalendarEvent stackElement in annotationStack) {
+        if (stackElement.end == null || stackElement.end.isBefore(a.start)) {
+            a._marginLeft = i;
+            annotationStack[i] = a;
+            foundPosition = true;
+            break;
+//          }
+        }
+        i++;
+      }
+      if (!foundPosition) {
+        a._marginLeft = annotationStack.length;
+        annotationStack.add(a);
+      }
+    }
     if (day != null) {
       _renderAllAnnotations();
     }
@@ -808,11 +838,18 @@ class CalendarView extends PolymerElement {
   void _updateAnnotation(CalendarEvent annotation, DivElement eventDiv) {
     var startDate = max([annotation.start, _dayStart]);
     var quarters = startDate.hour * _zoomLevel.hourMultiplier + startDate.minute ~/ _zoomLevel.minuteFactor;
-//    var endDate = min([annotation.end, _dayEnd]);
-//    var endquarters = endDate.hour * _zoomLevel.hourMultiplier + endDate.minute ~/ _zoomLevel.minuteFactor;
     
     eventDiv.style.top = '${quarters * _zoomLevel.timeFrameHeight}px';
-//    eventDiv.style.height = '${(endquarters - quarters) * _zoomLevel.timeFrameHeight}px';
+    eventDiv.style.marginLeft = '${annotation._marginLeft * 6}px';
+    if (annotation.end != null) {
+      eventDiv.classes.add("cal-annotation-duration");
+      var indicatorDiv = eventDiv.querySelector(".indicator");
+      var endDate = min([annotation.end, _dayEnd]);
+      var endquarters = endDate.hour * _zoomLevel.hourMultiplier + endDate.minute ~/ _zoomLevel.minuteFactor;
+      indicatorDiv.style.height = '${(endquarters - quarters) * _zoomLevel.timeFrameHeight}px';
+    } else {
+      eventDiv.classes.remove("cal-annotation-duration");
+    }
   }
   
   
@@ -820,10 +857,11 @@ class CalendarView extends PolymerElement {
     DivElement dayColumn = _dayColumn; //calendarWrapper.querySelector('#daycol-${_formatDate(day)}');
     
     var eventDiv = _createAndAppend(dayColumn, '<div class="cal-annotation" />');
-    var indicatorDiv = _createAndAppend(eventDiv, '<div class="indicator" />');
     var tooltipDiv = _createAndAppend(eventDiv, '<div class="cal-tooltip" />');
+    var indicatorDiv = _createAndAppend(eventDiv, '<div class="indicator" />');
     eventDiv.attributes['annotationid'] = '${annotation.id}';
-    tooltipDiv.text = '${_formatTimeShort(annotation.start)}: ${annotation.title}';
+    var endlabel = annotation.end == null ? '' : ' - ${_formatTimeShort(annotation.end)}';
+    tooltipDiv.text = '${_formatTimeShort(annotation.start)}$endlabel: ${annotation.title}';
     
     _updateAnnotation(annotation, eventDiv);
     

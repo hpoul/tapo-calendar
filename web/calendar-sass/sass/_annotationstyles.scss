@@ -2,27 +2,43 @@
   position: absolute;
   left: -55px;
   top: -7px;
+  // it is better that the "hover area" is more right than left, because annotations which are to the right have hover priority anyway.
+  padding-left:1px;
+  padding-right:4px;
+  transition: top $animlength;
 }
 .cal-annotation .indicator {
   width: 10px;
   height: 10px;
-  border: 4px solid orange;
-  border-radius: 10px;
+  top: -4px;
+  border: 2px solid orange;
+  @include border-radius(5px);
   background-color: white;
   position: relative;
+  @include box-sizing(border-box);
+}
+.cal-annotation-duration .indicator {
+  top: 0px;
+  width: 5px;
+  border: 2px solid orange;
+  transition: height $animlength;
 }
 .cal-annotation:hover .cal-tooltip {
   display: block;
 }
+.cal-annotation:hover .indicator {
+  border-color: lighten(orange, 20%);
+}
 .cal-annotation .cal-tooltip {
   z-index: 1;
-  position: relative;
+  position: absolute;
   display: none;
   background-color: white;
-  top: -23px;
+  top: -5px;
   left: 25px;
   padding: 7px;
   border-radius: 5px;
   border: 2px solid orange;
-  max-width: 60%;
+  //max-width: 60%;
+  width: 40em;
 }
