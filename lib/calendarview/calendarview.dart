@@ -861,7 +861,16 @@ class CalendarView extends PolymerElement {
     var indicatorDiv = _createAndAppend(eventDiv, '<div class="indicator" />');
     eventDiv.attributes['annotationid'] = '${annotation.id}';
     var endlabel = annotation.end == null ? '' : ' - ${_formatTimeShort(annotation.end)}';
-    tooltipDiv.text = '${_formatTimeShort(annotation.start)}$endlabel: ${annotation.title}';
+    var durationStr = '';
+    if (annotation.end != null) {
+      Duration duration = annotation.end.difference(annotation.start);
+      if (duration.inMinutes > 0) {
+        durationStr = " (${duration.inMinutes} Minutes)";
+      } else {
+        durationStr = " (${duration.inSeconds} Seconds)";
+      }
+    }
+    tooltipDiv.text = '${_formatTimeShort(annotation.start)}$endlabel: ${annotation.title}${durationStr}';
     
     _updateAnnotation(annotation, eventDiv);
     
