@@ -105,8 +105,19 @@ class CalendarEvent extends Observable {
   @observable EventTheme theme = EventTheme.BLUE;
   @observable bool isInProgress = false;
   int _marginLeft = 0;
+  DateTime _paddedStart;
+  DateTime _paddedEnd;
   
   CalendarEvent(this.id, this.start, this.end, this.title, this.description);
+  
+  void _addPadding(Duration padding) {
+    _paddedStart = start.subtract(padding);
+    if (end == null) {
+      _paddedEnd = start.add(padding);
+    } else {
+      _paddedEnd = end.add(padding);
+    }
+  }
 }
 
 class CalendarInteractionTracker {
@@ -438,6 +449,8 @@ class CalendarView extends PolymerElement {
   void set annotations(List<CalendarEvent> annotations) {
     _annotations = annotations;
     // make sure annotations are ordered by time, and see if there are any obstructions.
+    Duration padding = const Duration(minutes: 5);
+    _annotations.forEach((e) => e._addPadding(padding));
     _annotations.sort((a, b) => a.start.compareTo(b.start));
 
     // we now have to check if some annotations are at the same time as others.
@@ -452,7 +465,7 @@ class CalendarView extends PolymerElement {
       bool foundPosition = false;
       // each entry in the stack is one "column" now we simply check where we have enough room, and assign it..
       for (CalendarEvent stackElement in annotationStack) {
-        if (stackElement.end == null || stackElement.end.isBefore(a.start)) {
+        if (stackElement._paddedEnd == null || stackElement._paddedEnd.isBefore(a._paddedStart)) {
             a._marginLeft = i;
             annotationStack[i] = a;
             foundPosition = true;
