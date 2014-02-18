@@ -901,11 +901,17 @@ class CalendarView extends PolymerElement {
     eventDiv.style.top = '${quarters * _zoomLevel.timeFrameHeight}px';
     eventDiv.style.marginLeft = '${annotation._marginLeft * 6}px';
     if (annotation.end != null) {
-      eventDiv.classes.add("cal-annotation-duration");
       var indicatorDiv = eventDiv.querySelector(".indicator");
       var endDate = min([annotation.end, _dayEnd]);
       var endquarters = endDate.hour * _zoomLevel.hourMultiplier + endDate.minute ~/ _zoomLevel.minuteFactor;
-      indicatorDiv.style.height = '${(endquarters - quarters) * _zoomLevel.timeFrameHeight}px';
+      var height = (endquarters - quarters) * _zoomLevel.timeFrameHeight;
+      if (height > 10) {
+        eventDiv.classes.add("cal-annotation-duration");
+        indicatorDiv.style.height = '${height}px';
+      } else {
+        indicatorDiv.style.height = '';
+        eventDiv.classes.remove("cal-annotation-duration");
+      }
     } else {
       eventDiv.classes.remove("cal-annotation-duration");
     }

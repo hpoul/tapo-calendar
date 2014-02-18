@@ -7,16 +7,16 @@ $annotation-active-border-color: lighten(green, 20%);
   // it is better that the "hover area" is more right than left, because annotations which are to the right have hover priority anyway.
   padding-left:1px;
   padding-right:4px;
-  padding-top: 15px;
-  margin-top: -15px;
+  padding-top: 8px;
+  margin-top: -8px;
   transition: top $animlength;
 
   .indicator {
     cursor: pointer;
     //width: 10px;
     width: 5px;
-    height: 10px;
-    top: -4px;
+    height: 8px;
+    top: -3px;
     border: 2px solid $annotation-border-color;
     @include border-radius(5px);
     background-color: white;
