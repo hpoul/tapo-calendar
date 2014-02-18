@@ -1,3 +1,5 @@
+$annotation-border-color: orange;
+$annotation-active-border-color: lighten(green, 20%);
 .cal-annotation {
   position: absolute;
   left: -55px;
@@ -6,40 +8,62 @@
   padding-left:1px;
   padding-right:4px;
   transition: top $animlength;
-}
-.cal-annotation .indicator {
-  //width: 10px;
-  width: 5px;
-  height: 10px;
-  top: -4px;
-  border: 2px solid orange;
-  @include border-radius(5px);
-  background-color: white;
-  position: relative;
-  @include box-sizing(border-box);
+
+  .indicator {
+    cursor: pointer;
+    //width: 10px;
+    width: 5px;
+    height: 10px;
+    top: -4px;
+    border: 2px solid $annotation-border-color;
+    @include border-radius(5px);
+    background-color: white;
+    position: relative;
+    @include box-sizing(border-box);
+  }
+  
+  .cal-tooltip {
+    cursor: auto;
+    z-index: 2;
+    position: absolute;
+    display: none;
+    background-color: white;
+    top: -5px;
+    left: 25px;
+    padding: 7px;
+    border-radius: 5px;
+    border: 2px solid $annotation-border-color;
+    //max-width: 60%;
+    width: 40em;
+  }
 }
 .cal-annotation-duration .indicator {
   top: 0px;
   width: 5px;
-  border: 2px solid orange;
+  border: 2px solid $annotation-border-color;
   transition: height $animlength;
 }
-.cal-annotation:hover .cal-tooltip {
-  display: block;
+.cal-annotation-action {
+  text-decoration: none;
+  margin-left: 1em;
 }
-.cal-annotation:hover .indicator {
-  border-color: lighten(orange, 20%);
-}
-.cal-annotation .cal-tooltip {
-  z-index: 1;
-  position: absolute;
-  display: none;
-  background-color: white;
-  top: -5px;
-  left: 25px;
-  padding: 7px;
-  border-radius: 5px;
-  border: 2px solid orange;
-  //max-width: 60%;
+.cal-annotation:hover, .cal-annotation.cal-annotation-active {
   width: 40em;
+
+
+  .cal-tooltip {
+    display: block;
+  }
+  .indicator {
+    border-color: lighten($annotation-border-color, 20%);
+  }
+}
+.cal-annotation.cal-annotation-active {
+  .indicator {
+    border-color: $annotation-active-border-color;
+  }
+  .cal-tooltip {
+    border-color: $annotation-active-border-color;
+    z-index: 1;
+  }
 }

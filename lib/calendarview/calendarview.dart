@@ -120,6 +120,52 @@ class CalendarEvent extends Observable {
   }
 }
 
+class CalendarAnnotationActionSelectedDetail {
+  CalendarAnnotationAction action;
+  CalendarAnnotation annotation;
+  CalendarAnnotationActionSelectedDetail(this.action, this.annotation);
+}
+
+class CalendarAnnotationAction {
+  String key;
+  String label;
+  String href;
+  String iconsrc;
+  CalendarAnnotationAction(this.key, this.label, {this.href, this.iconsrc});
+  
+  Element createActionElement(CalendarAnnotation annotation) {
+    var a = this;
+    var el = new AnchorElement(href: "#")..classes.add('cal-annotation-action');
+    if (a.iconsrc != null) {
+      el.append(new ImageElement(src: a.iconsrc, width: 10, height: 10));
+    } else {
+      el.text=a.label;
+    }
+    if (a.href != null) {
+      el.target = '_blank';
+      el.href = a.href;
+    } else {
+      el.onClick.listen((e){
+        e.preventDefault();
+        e.stopPropagation();
+        el.dispatchEvent(new CustomEvent(
+            'annotationactionselected',
+            detail: new CalendarAnnotationActionSelectedDetail(a, annotation)));
+      });
+    }
+    return el;
+  }
+}
+
+class CalendarAnnotation extends CalendarEvent {
+  List<CalendarAnnotationAction> actions;
+  
+  CalendarAnnotation(int id, DateTime start, DateTime end, String title, String description,
+      {this.actions: null}) :
+    super(id, start, end, title, description);
+  
+}
+
 class CalendarInteractionTracker {
   DivElement _eventListWrapperDiv;
   CalendarView _calendarView;
@@ -883,7 +929,19 @@ class CalendarView extends PolymerElement {
         durationStr = " (${duration.inSeconds} Seconds)";
       }
     }
+    eventDiv.onMouseDown.listen((e) => e.stopPropagation());
     tooltipDiv.text = '${_formatTimeShort(annotation.start)}$endlabel: ${annotation.title}${durationStr}';
+    if (annotation is CalendarAnnotation && annotation.actions != null) {
+      tooltipDiv.children.addAll(annotation.actions.map((action) => action.createActionElement(annotation)));
+    }
+    indicatorDiv.onMouseDown.listen((e) {
+      dayColumn.querySelectorAll('.cal-annotation-active')
+        .forEach((Element e) => e.classes.remove('cal-annotation-active'));
+      eventDiv.classes.add('cal-annotation-active');
+      new Timer(const Duration(seconds: 10), (){
+        eventDiv.classes.remove('cal-annotation-active');
+      });
+    });
     
     _updateAnnotation(annotation, eventDiv);
     
