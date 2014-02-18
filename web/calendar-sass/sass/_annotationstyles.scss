@@ -7,6 +7,8 @@ $annotation-active-border-color: lighten(green, 20%);
   // it is better that the "hover area" is more right than left, because annotations which are to the right have hover priority anyway.
   padding-left:1px;
   padding-right:4px;
+  padding-top: 15px;
+  margin-top: -15px;
   transition: top $animlength;
 
   .indicator {
@@ -28,7 +30,7 @@ $annotation-active-border-color: lighten(green, 20%);
     position: absolute;
     display: none;
     background-color: white;
-    top: -5px;
+    top: 0px;
     left: 25px;
     padding: 7px;
     border-radius: 5px;
@@ -49,6 +51,7 @@ $annotation-active-border-color: lighten(green, 20%);
 }
 .cal-annotation:hover, .cal-annotation.cal-annotation-active {
   width: 40em;
+  height: 3em;
 
 
   .cal-tooltip {
