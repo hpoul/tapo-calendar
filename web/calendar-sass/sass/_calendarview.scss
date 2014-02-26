@@ -14,7 +14,10 @@ $animlength: 1s;
   }
   &.inzoomanimation .calendarview-wrapper {
     position: relative;
-    transition: top $animlength;
+    //transition: top $animlength;
+    @include transition(top $animlength);
+    //@include transition-property(top);
+    //@include transition-duration($animlength);
   }
   &.inzoomanimation .cal-now {
     display: none;
@@ -76,11 +79,15 @@ $animlength: 1s;
   .cal-timegrid-hour, .cal-timelabel-wrapper, .cal-timelabel, .cal-timegrid-hour-half,
   .cal-timegrid-minute-five, .cal-timegrid-minute, .cal-eventlistwrapper, .cal-event, .cal-timegrid-five-minute {
     //transition: height 0.5s;
-    transition: height $animlength, top $animlength;
+    //transition: height $animlength, top $animlength;
+    //@include transition-property(height, top);
+    //@include transition-duration($animlength, $animlength);
+    @include transition(height $animlength, top $animlength);
   }
   
   .cal-event.resizing, .cal-event.moving {
-    transition: none;
+    //transition: none;
+    @include transition(none);
   }
 
 .cal-event .delete-inline-wrapper {

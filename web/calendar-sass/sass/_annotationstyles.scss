@@ -9,7 +9,9 @@ $annotation-active-border-color: lighten(green, 20%);
   padding-right:4px;
   padding-top: 8px;
   margin-top: -8px;
-  transition: top $animlength;
+  //transition: top $animlength;
+  @include transition-property(top);
+  @include transition-duration($animlength);
 
   .indicator {
     cursor: pointer;
@@ -43,7 +45,9 @@ $annotation-active-border-color: lighten(green, 20%);
   top: 0px;
   width: 5px;
   border: 2px solid $annotation-border-color;
-  transition: height $animlength;
+  //transition: height $animlength;
+  @include transition-property(height);
+  @include transition-duration($animlength);
 }
 .cal-annotation-action {
   text-decoration: none;

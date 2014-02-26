@@ -597,13 +597,21 @@ class CalendarView extends PolymerElement {
     if (nowLine != null) {
       nowLine.remove();
     }
-    subscription = wrapper.onTransitionEnd.listen((event) {
-      print('we got transitionend event. top: ${wrapper.style.top} / newScrollPos: ${newScrollPos} / oldScrollPos: ${scrollPos} / current scrollTop: ${wrapper.parent.scrollTop} ');
+    var endTransition = () {
+      _logger.finer('we got transitionend event. top: ${wrapper.style.top} / newScrollPos: ${newScrollPos} / oldScrollPos: ${scrollPos} / current scrollTop: ${wrapper.parent.scrollTop} ');
       wrapper.parent.classes.remove('inzoomanimation');
       wrapper.style.top = '0px';
       wrapper.parent.scrollTop = newScrollPos;
       _updateNowLine();
       subscription.cancel();
+      subscription = null;
+    };
+    subscription = wrapper.onTransitionEnd.listen((event) => endTransition);
+    new Timer(const Duration(seconds: 2), (){
+      if (subscription != null) {
+        _logger.finer('Got no transition end event - forcing end.');
+        endTransition();
+      }
     });
     
     for(CalendarEvent event in _events) {
