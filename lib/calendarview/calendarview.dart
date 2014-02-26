@@ -563,6 +563,12 @@ class CalendarView extends PolymerElement {
     updateZoomLevel(ZoomLevel.values[pos]);
   }
   
+  void scrollTo(int hours) {
+    int pos = _zoomLevel.minutesToPos(hours * 60);
+    var wrapper = calendarWrapper;
+    wrapper.parent.scrollTop = pos;
+  }
+  
   void updateZoomLevel(ZoomLevel level) {
     var wrapper = calendarWrapper;
     if (wrapper.parent.classes.contains('inzoomanimation')) {
