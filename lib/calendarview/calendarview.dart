@@ -458,8 +458,9 @@ class CalendarView extends PolymerElement {
   @observable @published DateTime get day => _day;
   bool get isToday => _isToday;
   
-  void enteredView() {
-    super.enteredView();
+  @override
+  void attached() {
+    super.attached();
     _updateCalcHelpers();
     _logger.finer('we have been inserted.');
 //    if (day == null) {

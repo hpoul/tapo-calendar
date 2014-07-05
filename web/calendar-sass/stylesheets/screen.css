@@ -2,7 +2,7 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-/* line 17, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.13.alpha.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 17, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -24,51 +24,51 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.13.alpha.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.13.alpha.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.13.alpha.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.13.alpha.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.13.alpha.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.13.alpha.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.13.alpha.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.13.alpha.4/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 116, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block;
 }
 
 /* Must be included by calling script. */
-/* line 3, ../sass/_calendarview.scss */
+/* line 5, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview {
   /******************
      Events ...
@@ -116,6 +116,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   overflow: hidden;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
   border-radius: 5px;
 }
 /* line 42, ../sass/_eventstyles.scss */
@@ -300,31 +302,46 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   /* the following style is not supported in opera.. maybe we should use the above image? */
   cursor: not-allowed;
 }
-/* line 7, ../sass/_calendarview.scss */
+/* line 9, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview.inzoomanimation {
   overflow-y: hidden;
-  transition: top 1s;
 }
 /* line 12, ../sass/_calendarview.scss */
+.tapo-calendar-calendarview .calendarview-wrapper {
+  position: relative;
+}
+/* line 15, ../sass/_calendarview.scss */
+.tapo-calendar-calendarview.inzoomanimation .calendarview-wrapper {
+  position: relative;
+  -webkit-transition: top 1s;
+  -moz-transition: top 1s;
+  -o-transition: top 1s;
+  transition: top 1s;
+}
+/* line 22, ../sass/_calendarview.scss */
+.tapo-calendar-calendarview.inzoomanimation .cal-now {
+  display: none;
+}
+/* line 26, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .cal-wrapper {
   overflow: hidden;
   position: relative;
 }
-/* line 17, ../sass/_calendarview.scss */
+/* line 31, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .cal-timegrid-wrapper {
   position: relative;
   /*top: 1px;*/
 }
-/* line 21, ../sass/_calendarview.scss */
+/* line 35, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .cal-timegrid {
   position: absolute;
   width: 100%;
 }
-/* line 25, ../sass/_calendarview.scss */
+/* line 39, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .placeholder-cell {
   width: 60px;
 }
-/* line 29, ../sass/_calendarview.scss */
+/* line 43, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .cal-table {
   border-collapse: collapse;
   border: 0px;
@@ -333,54 +350,60 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   font-size: 8pt;
   line-height: normal;
 }
-/* line 40, ../sass/_calendarview.scss */
+/* line 54, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .cal-table tr {
   vertical-align: top;
 }
-/* line 46, ../sass/_calendarview.scss */
+/* line 60, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .cal-timegrid-hour,
 .tapo-calendar-calendarview .cal-timelabel-wrapper,
 .tapo-calendar-calendarview .cal-timelabel {
   border-top: 1px solid #ccc;
 }
-/* line 49, ../sass/_calendarview.scss */
+/* line 63, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .cal-timegrid-hour-half {
   border-bottom: 1px dashed #ccc;
 }
-/* line 56, ../sass/_calendarview.scss */
+/* line 70, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .cal-timegrid-hour-quarter,
 .tapo-calendar-calendarview .cal-timegrid-five-minute,
 .tapo-calendar-calendarview .cal-timegrid-minute-five,
 .tapo-calendar-calendarview .cal-timegrid-minute {
   border-bottom: 1px dotted #ddd;
 }
-/* line 59, ../sass/_calendarview.scss */
+/* line 73, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .cal-timelabel {
   text-align: right;
   color: #888;
   padding-right: 5px;
 }
-/* line 66, ../sass/_calendarview.scss */
+/* line 80, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .cal-timegrid-hour, .tapo-calendar-calendarview .cal-timelabel-wrapper, .tapo-calendar-calendarview .cal-timelabel, .tapo-calendar-calendarview .cal-timegrid-hour-half,
 .tapo-calendar-calendarview .cal-timegrid-minute-five, .tapo-calendar-calendarview .cal-timegrid-minute, .tapo-calendar-calendarview .cal-eventlistwrapper, .tapo-calendar-calendarview .cal-event, .tapo-calendar-calendarview .cal-timegrid-five-minute {
+  -webkit-transition: height 1s, top 1s;
+  -moz-transition: height 1s, top 1s;
+  -o-transition: height 1s, top 1s;
   transition: height 1s, top 1s;
 }
-/* line 71, ../sass/_calendarview.scss */
+/* line 88, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .cal-event.resizing, .tapo-calendar-calendarview .cal-event.moving {
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
   transition: none;
 }
-/* line 75, ../sass/_calendarview.scss */
+/* line 93, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .cal-event .delete-inline-wrapper {
   float: right;
 }
-/* line 78, ../sass/_calendarview.scss */
+/* line 96, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .cal-event .delete-inline {
   background-image: url('data:image/gif;base64,R0lGODlhDAAMAKU0AObm5vLy8vX19O3t7d3d3UdHR3x8fO3t7ISEhNfX2OPj4lxcXNjY2NjX2PDv8FBQUHJycunq6enq6urq6fT09EtLS+/v8PX29vLy8/Dw8N3c3Hd3d+Li49zd3IaGhvX09NfX1+rp6vX09djY19jX193d3EJCQuzs7VZWVtfY14CAgOPi4urq6ubm521tbWFhYWdnZ/b29n19fbu7u////////////////////////////////////////////////yH5BAEAAD8ALAAAAAAMAAwAAAYiwJ9wSCwaiyYTMblk/pLKJjSKhB6fVuPUOcxmhVzsdTwOAgA7');
   width: 12px;
   height: 12px;
   display: inline-block;
 }
-/* line 119, ../sass/_calendarview.scss */
+/* line 137, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-overviewday {
   /*
   .cal-timegrid-hour-quarter {
@@ -394,26 +417,26 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   }
   */
 }
-/* line 86, ../sass/_calendarview.scss */
+/* line 104, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-overviewday .cal-timegrid-hour, .tapo-calendar-calendarview .zoom-overviewday .cal-timelabel-wrapper, .tapo-calendar-calendarview .zoom-overviewday .cal-timelabel {
   height: 35px;
 }
-/* line 89, ../sass/_calendarview.scss */
+/* line 107, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-overviewday .cal-timegrid-hour-half {
   height: 17px;
 }
-/* line 103, ../sass/_calendarview.scss */
+/* line 121, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-overviewday .cal-timegrid-five-minute {
   opacity: 0;
   height: 2px;
 }
-/* line 112, ../sass/_calendarview.scss */
+/* line 130, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-overviewday .cal-eventlistwrapper {
   position: relative;
   height: 864px;
   cursor: pointer;
 }
-/* line 122, ../sass/_calendarview.scss */
+/* line 140, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-day {
   /*
   .cal-timegrid-hour-quarter {
@@ -427,26 +450,26 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   }
   */
 }
-/* line 86, ../sass/_calendarview.scss */
+/* line 104, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-day .cal-timegrid-hour, .tapo-calendar-calendarview .zoom-day .cal-timelabel-wrapper, .tapo-calendar-calendarview .zoom-day .cal-timelabel {
   height: 59px;
 }
-/* line 89, ../sass/_calendarview.scss */
+/* line 107, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-day .cal-timegrid-hour-half {
   height: 29px;
 }
-/* line 103, ../sass/_calendarview.scss */
+/* line 121, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-day .cal-timegrid-five-minute {
   opacity: 0;
   height: 4px;
 }
-/* line 112, ../sass/_calendarview.scss */
+/* line 130, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-day .cal-eventlistwrapper {
   position: relative;
   height: 1440px;
   cursor: pointer;
 }
-/* line 125, ../sass/_calendarview.scss */
+/* line 143, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-quarter-hour {
   /*
   .cal-timegrid-hour-quarter {
@@ -460,26 +483,26 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   }
   */
 }
-/* line 86, ../sass/_calendarview.scss */
+/* line 104, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-quarter-hour .cal-timegrid-hour, .tapo-calendar-calendarview .zoom-quarter-hour .cal-timelabel-wrapper, .tapo-calendar-calendarview .zoom-quarter-hour .cal-timelabel {
   height: 239px;
 }
-/* line 89, ../sass/_calendarview.scss */
+/* line 107, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-quarter-hour .cal-timegrid-hour-half {
   height: 119px;
 }
-/* line 103, ../sass/_calendarview.scss */
+/* line 121, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-quarter-hour .cal-timegrid-five-minute {
   opacity: 0;
   height: 19px;
 }
-/* line 112, ../sass/_calendarview.scss */
+/* line 130, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-quarter-hour .cal-eventlistwrapper {
   position: relative;
   height: 5760px;
   cursor: pointer;
 }
-/* line 128, ../sass/_calendarview.scss */
+/* line 146, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-five-minutes {
   /*
   .cal-timegrid-hour-quarter {
@@ -493,26 +516,26 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   }
   */
 }
-/* line 86, ../sass/_calendarview.scss */
+/* line 104, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-five-minutes .cal-timegrid-hour, .tapo-calendar-calendarview .zoom-five-minutes .cal-timelabel-wrapper, .tapo-calendar-calendarview .zoom-five-minutes .cal-timelabel {
   height: 959px;
 }
-/* line 89, ../sass/_calendarview.scss */
+/* line 107, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-five-minutes .cal-timegrid-hour-half {
   height: 479px;
 }
-/* line 103, ../sass/_calendarview.scss */
+/* line 121, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-five-minutes .cal-timegrid-five-minute {
   height: 79px;
   opacity: 1;
 }
-/* line 112, ../sass/_calendarview.scss */
+/* line 130, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-five-minutes .cal-eventlistwrapper {
   position: relative;
   height: 23040px;
   cursor: pointer;
 }
-/* line 131, ../sass/_calendarview.scss */
+/* line 149, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-minute {
   /*
   .cal-timegrid-hour-quarter {
@@ -526,20 +549,20 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   }
   */
 }
-/* line 86, ../sass/_calendarview.scss */
+/* line 104, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-minute .cal-timegrid-hour, .tapo-calendar-calendarview .zoom-minute .cal-timelabel-wrapper, .tapo-calendar-calendarview .zoom-minute .cal-timelabel {
   height: 3839px;
 }
-/* line 89, ../sass/_calendarview.scss */
+/* line 107, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-minute .cal-timegrid-hour-half {
   height: 1919px;
 }
-/* line 103, ../sass/_calendarview.scss */
+/* line 121, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-minute .cal-timegrid-five-minute {
   height: 319px;
   opacity: 1;
 }
-/* line 112, ../sass/_calendarview.scss */
+/* line 130, ../sass/_calendarview.scss */
 .tapo-calendar-calendarview .zoom-minute .cal-eventlistwrapper {
   position: relative;
   height: 92160px;
@@ -595,6 +618,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   overflow: hidden;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
   border-radius: 5px;
 }
 
@@ -813,4 +838,983 @@ input.cal-event-label {
   /* cursor: url(../images/icons/process-stop.png), default; */
   /* the following style is not supported in opera.. maybe we should use the above image? */
   cursor: not-allowed;
+}
+
+/* line 3, ../sass/_annotationstyles.scss */
+.cal-annotation {
+  position: absolute;
+  left: -55px;
+  top: -7px;
+  padding-left: 1px;
+  padding-right: 4px;
+  padding-top: 8px;
+  margin-top: -8px;
+  -webkit-transition-property: top;
+  -moz-transition-property: top;
+  -o-transition-property: top;
+  transition-property: top;
+  -webkit-transition-duration: 1s;
+  -moz-transition-duration: 1s;
+  -o-transition-duration: 1s;
+  transition-duration: 1s;
+}
+/* line 16, ../sass/_annotationstyles.scss */
+.cal-annotation .indicator {
+  cursor: pointer;
+  width: 5px;
+  height: 8px;
+  top: -3px;
+  border: 2px solid orange;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  background-color: white;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* line 29, ../sass/_annotationstyles.scss */
+.cal-annotation .cal-tooltip {
+  cursor: auto;
+  z-index: 2;
+  position: absolute;
+  display: none;
+  background-color: white;
+  top: 0px;
+  left: 25px;
+  padding: 7px;
+  border-radius: 5px;
+  border: 2px solid orange;
+  width: 40em;
+}
+
+/* line 44, ../sass/_annotationstyles.scss */
+.cal-annotation-duration .indicator {
+  top: 0px;
+  width: 5px;
+  border: 2px solid orange;
+  -webkit-transition-property: height;
+  -moz-transition-property: height;
+  -o-transition-property: height;
+  transition-property: height;
+  -webkit-transition-duration: 1s;
+  -moz-transition-duration: 1s;
+  -o-transition-duration: 1s;
+  transition-duration: 1s;
+}
+
+/* line 52, ../sass/_annotationstyles.scss */
+.cal-annotation-action {
+  text-decoration: none;
+  margin-left: 1em;
+}
+
+/* line 56, ../sass/_annotationstyles.scss */
+.cal-annotation:hover, .cal-annotation.cal-annotation-active {
+  width: 40em;
+  height: 3em;
+}
+/* line 61, ../sass/_annotationstyles.scss */
+.cal-annotation:hover .cal-tooltip, .cal-annotation.cal-annotation-active .cal-tooltip {
+  display: block;
+}
+/* line 64, ../sass/_annotationstyles.scss */
+.cal-annotation:hover .indicator, .cal-annotation.cal-annotation-active .indicator {
+  border-color: #ffc966;
+}
+
+/* line 69, ../sass/_annotationstyles.scss */
+.cal-annotation.cal-annotation-active .indicator {
+  border-color: #00e600;
+}
+/* line 72, ../sass/_annotationstyles.scss */
+.cal-annotation.cal-annotation-active .cal-tooltip {
+  border-color: #00e600;
+  z-index: 1;
+}
+
+/* line 17, ../sass/screen.scss */
+body /deep/ {
+  /* Must be included by calling script. */
+  /******************
+     Events ...
+   ******************/
+}
+/* line 17, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body /deep/ html, body /deep/ body, body /deep/ div, body /deep/ span, body /deep/ applet, body /deep/ object, body /deep/ iframe,
+body /deep/ h1, body /deep/ h2, body /deep/ h3, body /deep/ h4, body /deep/ h5, body /deep/ h6, body /deep/ p, body /deep/ blockquote, body /deep/ pre,
+body /deep/ a, body /deep/ abbr, body /deep/ acronym, body /deep/ address, body /deep/ big, body /deep/ cite, body /deep/ code,
+body /deep/ del, body /deep/ dfn, body /deep/ em, body /deep/ img, body /deep/ ins, body /deep/ kbd, body /deep/ q, body /deep/ s, body /deep/ samp,
+body /deep/ small, body /deep/ strike, body /deep/ strong, body /deep/ sub, body /deep/ sup, body /deep/ tt, body /deep/ var,
+body /deep/ b, body /deep/ u, body /deep/ i, body /deep/ center,
+body /deep/ dl, body /deep/ dt, body /deep/ dd, body /deep/ ol, body /deep/ ul, body /deep/ li,
+body /deep/ fieldset, body /deep/ form, body /deep/ label, body /deep/ legend,
+body /deep/ table, body /deep/ caption, body /deep/ tbody, body /deep/ tfoot, body /deep/ thead, body /deep/ tr, body /deep/ th, body /deep/ td,
+body /deep/ article, body /deep/ aside, body /deep/ canvas, body /deep/ details, body /deep/ embed,
+body /deep/ figure, body /deep/ figcaption, body /deep/ footer, body /deep/ header, body /deep/ hgroup,
+body /deep/ menu, body /deep/ nav, body /deep/ output, body /deep/ ruby, body /deep/ section, body /deep/ summary,
+body /deep/ time, body /deep/ mark, body /deep/ audio, body /deep/ video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+/* line 22, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body /deep/ html {
+  line-height: 1;
+}
+/* line 24, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body /deep/ ol, body /deep/ ul {
+  list-style: none;
+}
+/* line 26, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body /deep/ table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* line 28, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body /deep/ caption, body /deep/ th, body /deep/ td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+/* line 30, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body /deep/ q, body /deep/ blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body /deep/ q:before, body /deep/ q:after, body /deep/ blockquote:before, body /deep/ blockquote:after {
+  content: "";
+  content: none;
+}
+/* line 32, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body /deep/ a img {
+  border: none;
+}
+/* line 116, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body /deep/ article, body /deep/ aside, body /deep/ details, body /deep/ figcaption, body /deep/ figure, body /deep/ footer, body /deep/ header, body /deep/ hgroup, body /deep/ menu, body /deep/ nav, body /deep/ section, body /deep/ summary {
+  display: block;
+}
+/* line 5, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview {
+  /******************
+     Events ...
+   ******************/
+  overflow-y: scroll;
+}
+/* line 6, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-attendancemarker {
+  position: absolute;
+  /* height: 1px; */
+  /* width: 20px; */
+  right: 5px;
+  /* background-color: red; */
+  background-color: #fee;
+  opacity: 0.8;
+  vertical-align: middle;
+}
+/* line 16, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-attendance-content {
+  padding: 3px;
+}
+/* line 19, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-break {
+  background: none;
+  border-left: 1px dotted red;
+  padding-left: 2em;
+}
+/* line 24, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-sign_out {
+  border-bottom: 1px solid red;
+}
+/* line 27, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-sign_in {
+  border-top: 1px solid red;
+}
+/* line 31, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-event {
+  position: absolute;
+  /* border-top: 1px solid red; */
+  border: 1px solid #009;
+  background-color: #eef;
+  margin-left: 10px;
+  width: 85%;
+  opacity: 0.9;
+  overflow: hidden;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+/* line 42, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-event-time {
+  font-weight: bold;
+  padding-top: 2px;
+  background-color: #55f;
+  color: white;
+  padding-left: 2px;
+  cursor: move;
+}
+/* line 50, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-event.type-pending, body /deep/ .tapo-calendar-calendarview .cal-event.type-pending .cal-event-time, body /deep/ .tapo-calendar-calendarview .type-pending .cal-event-resize {
+  opacity: 0.8;
+  cursor: progress;
+}
+/* line 54, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-event.type-inprogress, body /deep/ .tapo-calendar-calendarview .cal-event.type-inprogress .cal-event-time {
+  opacity: 0.5;
+  cursor: progress;
+}
+/* line 58, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .type-inprogress .cal-event-resize {
+  display: none;
+}
+/* line 61, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .tapo-calendar-calendarview .cal-event.type-inprogress {
+  border-bottom: none;
+}
+/* line 64, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-theme-red.cal-event {
+  border: 1px solid #900;
+  background-color: #fee;
+}
+/* line 68, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-theme-red .cal-event-time {
+  background-color: #f55;
+}
+/* line 71, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-theme-green.cal-event {
+  border: 1px solid #090;
+  background-color: #efe;
+}
+/* line 75, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-theme-green .cal-event-time {
+  background-color: #006400;
+}
+/* line 78, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-theme-yellow.cal-event {
+  border: 1px solid #990;
+  background-color: #FFFFCC;
+}
+/* line 82, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-theme-yellow .cal-event-time {
+  background-color: #FFD700;
+}
+/* line 85, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-theme-brown.cal-event {
+  border: 1px solid #B8860B;
+  background-color: #FFEBCD;
+}
+/* line 89, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-theme-brown .cal-event-time {
+  background-color: #B8860B;
+}
+/* line 94, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-theme-orange.cal-event {
+  border: 1px solid #f63;
+  background-color: #fc9;
+}
+/* line 98, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-theme-orange .cal-event-time {
+  background-color: #f63;
+}
+/* line 101, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-theme-purple.cal-event {
+  border: 1px solid #6733DD;
+  background-color: #B99AFF;
+}
+/* line 105, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-theme-purple .cal-event-time {
+  background-color: #6733DD;
+}
+/* line 108, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-theme-turquoise.cal-event {
+  border: 1px solid #1A8084;
+  background-color: #46D6DB;
+}
+/* line 112, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-theme-turquoise .cal-event-time {
+  background-color: #1A8084;
+}
+/* line 117, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-event-time a {
+  cursor: pointer;
+}
+/* line 120, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-event-label-wrapper {
+  padding: 5px;
+  padding-right: 10px;
+  height: 100%;
+}
+/* line 125, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-event-label {
+  min-height: 1em;
+  /* padding: 5px; */
+  /* height:100%; */
+  /* background: white; */
+  cursor: text;
+  border: 1px solid transparent;
+}
+/* line 133, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-event-label-val {
+  padding: 1px;
+}
+/* line 136, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview input.cal-event-label {
+  border: none;
+  /* width: 100%; */
+  padding: 1px;
+  display: block;
+  margin: 0px;
+  font-family: inherit;
+  background: transparent;
+  width: 100%;
+  border: 1px solid transparent;
+}
+/* line 148, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-event-label-wrapper:hover .cal-event-label, body /deep/ .tapo-calendar-calendarview .cal-event-label.editing {
+  border: 1px solid gray;
+}
+/* line 151, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-event-label.editing {
+  background: white;
+  z-index: 100000;
+}
+/* line 156, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-event-resize {
+  position: absolute;
+  width: 100%;
+  height: 7px;
+  bottom: 0px;
+  cursor: s-resize;
+  opacity: 0.1;
+}
+/* line 164, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .ismoving {
+  cursor: move;
+}
+/* line 167, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .isresizing {
+  cursor: s-resize;
+}
+/* line 170, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-event:hover .cal-event-resize {
+  opacity: 0.4;
+}
+/* line 173, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-event .cal-event-resize:hover, body /deep/ .tapo-calendar-calendarview .resizing .cal-event-resize {
+  background-color: #ccf;
+  opacity: 1;
+}
+/* line 178, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-event-title {
+  margin-left: 1em;
+}
+/* line 182, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .tapo-locked, body /deep/ .tapo-calendar-calendarview .tapo-locked * {
+  opacity: 0.5;
+}
+/* line 185, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-now {
+  height: 1px;
+  width: 100%;
+  background-color: red;
+  position: relative;
+}
+/* line 192, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .tapo-calendar-calendarview .cal-eventlistwrapper.unavailable {
+  /* cursor: url(../images/icons/unavailable.ani.cur); */
+  /* cursor: url(../images/icons/process-stop.png), default; */
+  /* the following style is not supported in opera.. maybe we should use the above image? */
+  cursor: not-allowed;
+}
+/* line 9, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview.inzoomanimation {
+  overflow-y: hidden;
+}
+/* line 12, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .calendarview-wrapper {
+  position: relative;
+}
+/* line 15, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview.inzoomanimation .calendarview-wrapper {
+  position: relative;
+  -webkit-transition: top 1s;
+  -moz-transition: top 1s;
+  -o-transition: top 1s;
+  transition: top 1s;
+}
+/* line 22, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview.inzoomanimation .cal-now {
+  display: none;
+}
+/* line 26, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .cal-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+/* line 31, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .cal-timegrid-wrapper {
+  position: relative;
+  /*top: 1px;*/
+}
+/* line 35, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .cal-timegrid {
+  position: absolute;
+  width: 100%;
+}
+/* line 39, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .placeholder-cell {
+  width: 60px;
+}
+/* line 43, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .cal-table {
+  border-collapse: collapse;
+  border: 0px;
+  width: 100%;
+  font-family: Arial, Verdana;
+  font-size: 8pt;
+  line-height: normal;
+}
+/* line 54, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .cal-table tr {
+  vertical-align: top;
+}
+/* line 60, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .cal-timegrid-hour,
+body /deep/ .tapo-calendar-calendarview .cal-timelabel-wrapper,
+body /deep/ .tapo-calendar-calendarview .cal-timelabel {
+  border-top: 1px solid #ccc;
+}
+/* line 63, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .cal-timegrid-hour-half {
+  border-bottom: 1px dashed #ccc;
+}
+/* line 70, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .cal-timegrid-hour-quarter,
+body /deep/ .tapo-calendar-calendarview .cal-timegrid-five-minute,
+body /deep/ .tapo-calendar-calendarview .cal-timegrid-minute-five,
+body /deep/ .tapo-calendar-calendarview .cal-timegrid-minute {
+  border-bottom: 1px dotted #ddd;
+}
+/* line 73, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .cal-timelabel {
+  text-align: right;
+  color: #888;
+  padding-right: 5px;
+}
+/* line 80, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .cal-timegrid-hour, body /deep/ .tapo-calendar-calendarview .cal-timelabel-wrapper, body /deep/ .tapo-calendar-calendarview .cal-timelabel, body /deep/ .tapo-calendar-calendarview .cal-timegrid-hour-half,
+body /deep/ .tapo-calendar-calendarview .cal-timegrid-minute-five, body /deep/ .tapo-calendar-calendarview .cal-timegrid-minute, body /deep/ .tapo-calendar-calendarview .cal-eventlistwrapper, body /deep/ .tapo-calendar-calendarview .cal-event, body /deep/ .tapo-calendar-calendarview .cal-timegrid-five-minute {
+  -webkit-transition: height 1s, top 1s;
+  -moz-transition: height 1s, top 1s;
+  -o-transition: height 1s, top 1s;
+  transition: height 1s, top 1s;
+}
+/* line 88, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .cal-event.resizing, body /deep/ .tapo-calendar-calendarview .cal-event.moving {
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+/* line 93, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .cal-event .delete-inline-wrapper {
+  float: right;
+}
+/* line 96, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .cal-event .delete-inline {
+  background-image: url('data:image/gif;base64,R0lGODlhDAAMAKU0AObm5vLy8vX19O3t7d3d3UdHR3x8fO3t7ISEhNfX2OPj4lxcXNjY2NjX2PDv8FBQUHJycunq6enq6urq6fT09EtLS+/v8PX29vLy8/Dw8N3c3Hd3d+Li49zd3IaGhvX09NfX1+rp6vX09djY19jX193d3EJCQuzs7VZWVtfY14CAgOPi4urq6ubm521tbWFhYWdnZ/b29n19fbu7u////////////////////////////////////////////////yH5BAEAAD8ALAAAAAAMAAwAAAYiwJ9wSCwaiyYTMblk/pLKJjSKhB6fVuPUOcxmhVzsdTwOAgA7');
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+}
+/* line 137, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-overviewday {
+  /*
+  .cal-timegrid-hour-quarter {
+    height: $height / 4 - 1;
+  }
+  .cal-timegrid-minute-five {
+    height: $height / 12;
+  }
+  .cal-timegrid-minute {
+    height: $height / 60;
+  }
+  */
+}
+/* line 104, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-overviewday .cal-timegrid-hour, body /deep/ .tapo-calendar-calendarview .zoom-overviewday .cal-timelabel-wrapper, body /deep/ .tapo-calendar-calendarview .zoom-overviewday .cal-timelabel {
+  height: 35px;
+}
+/* line 107, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-overviewday .cal-timegrid-hour-half {
+  height: 17px;
+}
+/* line 121, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-overviewday .cal-timegrid-five-minute {
+  opacity: 0;
+  height: 2px;
+}
+/* line 130, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-overviewday .cal-eventlistwrapper {
+  position: relative;
+  height: 864px;
+  cursor: pointer;
+}
+/* line 140, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-day {
+  /*
+  .cal-timegrid-hour-quarter {
+    height: $height / 4 - 1;
+  }
+  .cal-timegrid-minute-five {
+    height: $height / 12;
+  }
+  .cal-timegrid-minute {
+    height: $height / 60;
+  }
+  */
+}
+/* line 104, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-day .cal-timegrid-hour, body /deep/ .tapo-calendar-calendarview .zoom-day .cal-timelabel-wrapper, body /deep/ .tapo-calendar-calendarview .zoom-day .cal-timelabel {
+  height: 59px;
+}
+/* line 107, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-day .cal-timegrid-hour-half {
+  height: 29px;
+}
+/* line 121, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-day .cal-timegrid-five-minute {
+  opacity: 0;
+  height: 4px;
+}
+/* line 130, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-day .cal-eventlistwrapper {
+  position: relative;
+  height: 1440px;
+  cursor: pointer;
+}
+/* line 143, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-quarter-hour {
+  /*
+  .cal-timegrid-hour-quarter {
+    height: $height / 4 - 1;
+  }
+  .cal-timegrid-minute-five {
+    height: $height / 12;
+  }
+  .cal-timegrid-minute {
+    height: $height / 60;
+  }
+  */
+}
+/* line 104, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-quarter-hour .cal-timegrid-hour, body /deep/ .tapo-calendar-calendarview .zoom-quarter-hour .cal-timelabel-wrapper, body /deep/ .tapo-calendar-calendarview .zoom-quarter-hour .cal-timelabel {
+  height: 239px;
+}
+/* line 107, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-quarter-hour .cal-timegrid-hour-half {
+  height: 119px;
+}
+/* line 121, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-quarter-hour .cal-timegrid-five-minute {
+  opacity: 0;
+  height: 19px;
+}
+/* line 130, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-quarter-hour .cal-eventlistwrapper {
+  position: relative;
+  height: 5760px;
+  cursor: pointer;
+}
+/* line 146, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-five-minutes {
+  /*
+  .cal-timegrid-hour-quarter {
+    height: $height / 4 - 1;
+  }
+  .cal-timegrid-minute-five {
+    height: $height / 12;
+  }
+  .cal-timegrid-minute {
+    height: $height / 60;
+  }
+  */
+}
+/* line 104, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-five-minutes .cal-timegrid-hour, body /deep/ .tapo-calendar-calendarview .zoom-five-minutes .cal-timelabel-wrapper, body /deep/ .tapo-calendar-calendarview .zoom-five-minutes .cal-timelabel {
+  height: 959px;
+}
+/* line 107, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-five-minutes .cal-timegrid-hour-half {
+  height: 479px;
+}
+/* line 121, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-five-minutes .cal-timegrid-five-minute {
+  height: 79px;
+  opacity: 1;
+}
+/* line 130, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-five-minutes .cal-eventlistwrapper {
+  position: relative;
+  height: 23040px;
+  cursor: pointer;
+}
+/* line 149, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-minute {
+  /*
+  .cal-timegrid-hour-quarter {
+    height: $height / 4 - 1;
+  }
+  .cal-timegrid-minute-five {
+    height: $height / 12;
+  }
+  .cal-timegrid-minute {
+    height: $height / 60;
+  }
+  */
+}
+/* line 104, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-minute .cal-timegrid-hour, body /deep/ .tapo-calendar-calendarview .zoom-minute .cal-timelabel-wrapper, body /deep/ .tapo-calendar-calendarview .zoom-minute .cal-timelabel {
+  height: 3839px;
+}
+/* line 107, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-minute .cal-timegrid-hour-half {
+  height: 1919px;
+}
+/* line 121, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-minute .cal-timegrid-five-minute {
+  height: 319px;
+  opacity: 1;
+}
+/* line 130, ../sass/_calendarview.scss */
+body /deep/ .tapo-calendar-calendarview .zoom-minute .cal-eventlistwrapper {
+  position: relative;
+  height: 92160px;
+  cursor: pointer;
+}
+/* line 6, ../sass/_eventstyles.scss */
+body /deep/ .cal-attendancemarker {
+  position: absolute;
+  /* height: 1px; */
+  /* width: 20px; */
+  right: 5px;
+  /* background-color: red; */
+  background-color: #fee;
+  opacity: 0.8;
+  vertical-align: middle;
+}
+/* line 16, ../sass/_eventstyles.scss */
+body /deep/ .cal-attendance-content {
+  padding: 3px;
+}
+/* line 19, ../sass/_eventstyles.scss */
+body /deep/ .cal-break {
+  background: none;
+  border-left: 1px dotted red;
+  padding-left: 2em;
+}
+/* line 24, ../sass/_eventstyles.scss */
+body /deep/ .cal-sign_out {
+  border-bottom: 1px solid red;
+}
+/* line 27, ../sass/_eventstyles.scss */
+body /deep/ .cal-sign_in {
+  border-top: 1px solid red;
+}
+/* line 31, ../sass/_eventstyles.scss */
+body /deep/ .cal-event {
+  position: absolute;
+  /* border-top: 1px solid red; */
+  border: 1px solid #009;
+  background-color: #eef;
+  margin-left: 10px;
+  width: 85%;
+  opacity: 0.9;
+  overflow: hidden;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+/* line 42, ../sass/_eventstyles.scss */
+body /deep/ .cal-event-time {
+  font-weight: bold;
+  padding-top: 2px;
+  background-color: #55f;
+  color: white;
+  padding-left: 2px;
+  cursor: move;
+}
+/* line 50, ../sass/_eventstyles.scss */
+body /deep/ .cal-event.type-pending, body /deep/ .cal-event.type-pending .cal-event-time, body /deep/ .type-pending .cal-event-resize {
+  opacity: 0.8;
+  cursor: progress;
+}
+/* line 54, ../sass/_eventstyles.scss */
+body /deep/ .cal-event.type-inprogress, body /deep/ .cal-event.type-inprogress .cal-event-time {
+  opacity: 0.5;
+  cursor: progress;
+}
+/* line 58, ../sass/_eventstyles.scss */
+body /deep/ .type-inprogress .cal-event-resize {
+  display: none;
+}
+/* line 61, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-event.type-inprogress {
+  border-bottom: none;
+}
+/* line 64, ../sass/_eventstyles.scss */
+body /deep/ .cal-theme-red.cal-event {
+  border: 1px solid #900;
+  background-color: #fee;
+}
+/* line 68, ../sass/_eventstyles.scss */
+body /deep/ .cal-theme-red .cal-event-time {
+  background-color: #f55;
+}
+/* line 71, ../sass/_eventstyles.scss */
+body /deep/ .cal-theme-green.cal-event {
+  border: 1px solid #090;
+  background-color: #efe;
+}
+/* line 75, ../sass/_eventstyles.scss */
+body /deep/ .cal-theme-green .cal-event-time {
+  background-color: #006400;
+}
+/* line 78, ../sass/_eventstyles.scss */
+body /deep/ .cal-theme-yellow.cal-event {
+  border: 1px solid #990;
+  background-color: #FFFFCC;
+}
+/* line 82, ../sass/_eventstyles.scss */
+body /deep/ .cal-theme-yellow .cal-event-time {
+  background-color: #FFD700;
+}
+/* line 85, ../sass/_eventstyles.scss */
+body /deep/ .cal-theme-brown.cal-event {
+  border: 1px solid #B8860B;
+  background-color: #FFEBCD;
+}
+/* line 89, ../sass/_eventstyles.scss */
+body /deep/ .cal-theme-brown .cal-event-time {
+  background-color: #B8860B;
+}
+/* line 94, ../sass/_eventstyles.scss */
+body /deep/ .cal-theme-orange.cal-event {
+  border: 1px solid #f63;
+  background-color: #fc9;
+}
+/* line 98, ../sass/_eventstyles.scss */
+body /deep/ .cal-theme-orange .cal-event-time {
+  background-color: #f63;
+}
+/* line 101, ../sass/_eventstyles.scss */
+body /deep/ .cal-theme-purple.cal-event {
+  border: 1px solid #6733DD;
+  background-color: #B99AFF;
+}
+/* line 105, ../sass/_eventstyles.scss */
+body /deep/ .cal-theme-purple .cal-event-time {
+  background-color: #6733DD;
+}
+/* line 108, ../sass/_eventstyles.scss */
+body /deep/ .cal-theme-turquoise.cal-event {
+  border: 1px solid #1A8084;
+  background-color: #46D6DB;
+}
+/* line 112, ../sass/_eventstyles.scss */
+body /deep/ .cal-theme-turquoise .cal-event-time {
+  background-color: #1A8084;
+}
+/* line 117, ../sass/_eventstyles.scss */
+body /deep/ .cal-event-time a {
+  cursor: pointer;
+}
+/* line 120, ../sass/_eventstyles.scss */
+body /deep/ .cal-event-label-wrapper {
+  padding: 5px;
+  padding-right: 10px;
+  height: 100%;
+}
+/* line 125, ../sass/_eventstyles.scss */
+body /deep/ .cal-event-label {
+  min-height: 1em;
+  /* padding: 5px; */
+  /* height:100%; */
+  /* background: white; */
+  cursor: text;
+  border: 1px solid transparent;
+}
+/* line 133, ../sass/_eventstyles.scss */
+body /deep/ .cal-event-label-val {
+  padding: 1px;
+}
+/* line 136, ../sass/_eventstyles.scss */
+body /deep/ input.cal-event-label {
+  border: none;
+  /* width: 100%; */
+  padding: 1px;
+  display: block;
+  margin: 0px;
+  font-family: inherit;
+  background: transparent;
+  width: 100%;
+  border: 1px solid transparent;
+}
+/* line 148, ../sass/_eventstyles.scss */
+body /deep/ .cal-event-label-wrapper:hover .cal-event-label, body /deep/ .cal-event-label.editing {
+  border: 1px solid gray;
+}
+/* line 151, ../sass/_eventstyles.scss */
+body /deep/ .cal-event-label.editing {
+  background: white;
+  z-index: 100000;
+}
+/* line 156, ../sass/_eventstyles.scss */
+body /deep/ .cal-event-resize {
+  position: absolute;
+  width: 100%;
+  height: 7px;
+  bottom: 0px;
+  cursor: s-resize;
+  opacity: 0.1;
+}
+/* line 164, ../sass/_eventstyles.scss */
+body /deep/ .ismoving {
+  cursor: move;
+}
+/* line 167, ../sass/_eventstyles.scss */
+body /deep/ .isresizing {
+  cursor: s-resize;
+}
+/* line 170, ../sass/_eventstyles.scss */
+body /deep/ .cal-event:hover .cal-event-resize {
+  opacity: 0.4;
+}
+/* line 173, ../sass/_eventstyles.scss */
+body /deep/ .cal-event .cal-event-resize:hover, body /deep/ .resizing .cal-event-resize {
+  background-color: #ccf;
+  opacity: 1;
+}
+/* line 178, ../sass/_eventstyles.scss */
+body /deep/ .cal-event-title {
+  margin-left: 1em;
+}
+/* line 182, ../sass/_eventstyles.scss */
+body /deep/ .tapo-locked, body /deep/ .tapo-locked * {
+  opacity: 0.5;
+}
+/* line 185, ../sass/_eventstyles.scss */
+body /deep/ .cal-now {
+  height: 1px;
+  width: 100%;
+  background-color: red;
+  position: relative;
+}
+/* line 192, ../sass/_eventstyles.scss */
+body /deep/ .tapo-calendar-calendarview .cal-eventlistwrapper.unavailable {
+  /* cursor: url(../images/icons/unavailable.ani.cur); */
+  /* cursor: url(../images/icons/process-stop.png), default; */
+  /* the following style is not supported in opera.. maybe we should use the above image? */
+  cursor: not-allowed;
+}
+/* line 3, ../sass/_annotationstyles.scss */
+body /deep/ .cal-annotation {
+  position: absolute;
+  left: -55px;
+  top: -7px;
+  padding-left: 1px;
+  padding-right: 4px;
+  padding-top: 8px;
+  margin-top: -8px;
+  -webkit-transition-property: top;
+  -moz-transition-property: top;
+  -o-transition-property: top;
+  transition-property: top;
+  -webkit-transition-duration: 1s;
+  -moz-transition-duration: 1s;
+  -o-transition-duration: 1s;
+  transition-duration: 1s;
+}
+/* line 16, ../sass/_annotationstyles.scss */
+body /deep/ .cal-annotation .indicator {
+  cursor: pointer;
+  width: 5px;
+  height: 8px;
+  top: -3px;
+  border: 2px solid orange;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  background-color: white;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* line 29, ../sass/_annotationstyles.scss */
+body /deep/ .cal-annotation .cal-tooltip {
+  cursor: auto;
+  z-index: 2;
+  position: absolute;
+  display: none;
+  background-color: white;
+  top: 0px;
+  left: 25px;
+  padding: 7px;
+  border-radius: 5px;
+  border: 2px solid orange;
+  width: 40em;
+}
+/* line 44, ../sass/_annotationstyles.scss */
+body /deep/ .cal-annotation-duration .indicator {
+  top: 0px;
+  width: 5px;
+  border: 2px solid orange;
+  -webkit-transition-property: height;
+  -moz-transition-property: height;
+  -o-transition-property: height;
+  transition-property: height;
+  -webkit-transition-duration: 1s;
+  -moz-transition-duration: 1s;
+  -o-transition-duration: 1s;
+  transition-duration: 1s;
+}
+/* line 52, ../sass/_annotationstyles.scss */
+body /deep/ .cal-annotation-action {
+  text-decoration: none;
+  margin-left: 1em;
+}
+/* line 56, ../sass/_annotationstyles.scss */
+body /deep/ .cal-annotation:hover, body /deep/ .cal-annotation.cal-annotation-active {
+  width: 40em;
+  height: 3em;
+}
+/* line 61, ../sass/_annotationstyles.scss */
+body /deep/ .cal-annotation:hover .cal-tooltip, body /deep/ .cal-annotation.cal-annotation-active .cal-tooltip {
+  display: block;
+}
+/* line 64, ../sass/_annotationstyles.scss */
+body /deep/ .cal-annotation:hover .indicator, body /deep/ .cal-annotation.cal-annotation-active .indicator {
+  border-color: #ffc966;
+}
+/* line 69, ../sass/_annotationstyles.scss */
+body /deep/ .cal-annotation.cal-annotation-active .indicator {
+  border-color: #00e600;
+}
+/* line 72, ../sass/_annotationstyles.scss */
+body /deep/ .cal-annotation.cal-annotation-active .cal-tooltip {
+  border-color: #00e600;
+  z-index: 1;
 }

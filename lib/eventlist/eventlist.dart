@@ -19,15 +19,5 @@ class EventListElement extends PolymerElement {
   void clickedZoomOut() {
     calendarView.zoomOut();
   }
-  
-  void enteredView() {
-    super.enteredView();
-    
-    /*
-    DateTime date = new DateTime.now();
-    DateTime start = new DateTime(date.year, date.month, date.day, 7);
-    DateTime end = new DateTime(date.year, date.month, date.day, 7, 45);
-    calendarView.events = [new CalendarEvent(1, start, end, title, 'uh yeah.')];
-    */
-  }
+
 }
