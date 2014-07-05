@@ -1,3 +1,7 @@
+### 0.0.4
+
+* Upgraded to polymer 0.11
+
 ### 0.0.3
 
 * Support for 'scrollTo' to scroll to a given hour.
