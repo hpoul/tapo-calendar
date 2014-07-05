@@ -56,7 +56,7 @@ packages:
   quiver:
     description: quiver
     source: hosted
-    version: "0.10.0"
+    version: "0.18.2"
   smoke:
     description: smoke
     source: hosted
