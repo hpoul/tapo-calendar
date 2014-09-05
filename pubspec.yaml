@@ -1,11 +1,11 @@
 name: tapo_calendar
 author: Herbert Poul <h.poul@tapo.at>
-version: 0.0.4+1
+version: 0.0.4+2
 homepage: https://github.com/hpoul/tapo-calendar
 description: A simple day-view calendar implementation for polymer.
 dependencies:
   logging: '>=0.9.1 <1.0.0'
-  polymer: '>=0.11.0 <0.12.0'
+  polymer: '>=0.11.0 <0.14.0'
   quiver: '>=0.18.0 <0.19.0'
 transformers:
 - polymer:
