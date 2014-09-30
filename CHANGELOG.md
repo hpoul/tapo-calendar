@@ -1,3 +1,7 @@
+### 0.0.4+3
+
+* Upgraded to polymer 0.15 (no changes required)
+
 ### 0.0.4+1 (2014-09-05)
 
 * Upgraded to polymer 0.13
