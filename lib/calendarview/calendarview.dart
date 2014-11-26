@@ -532,14 +532,14 @@ class CalendarView extends PolymerElement {
   }
   
   void _renderAllEvents() {
-    this.getShadowRoot('tapo-calendar-calendarview')
+    this.shadowRoots['tapo-calendar-calendarview']
       .querySelectorAll(".cal-event")
         .forEach((Element el) => el.remove());
     _events.forEach((event) => _renderEvent(event));
   }
   
   void _renderAllAnnotations() {
-    this.getShadowRoot('tapo-calendar-calendarview')
+    this.shadowRoots['tapo-calendar-calendarview']
       .querySelectorAll('.cal-annotation')
         .forEach((Element el) => el.remove());
     _annotations.forEach((event) { _renderAnnotation(event); });

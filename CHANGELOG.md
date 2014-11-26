@@ -1,3 +1,7 @@
+### 0.0.4+4
+
+* Cleanup: Fixed warnings (used deprecated getShadowRoot, unused import)
+
 ### 0.0.4+3
 
 * Upgraded to polymer 0.15 (no changes required)
