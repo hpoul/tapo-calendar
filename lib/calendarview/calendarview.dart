@@ -607,7 +607,7 @@ class CalendarView extends PolymerElement {
       subscription.cancel();
       subscription = null;
     };
-    subscription = wrapper.onTransitionEnd.listen((event) => endTransition);
+    subscription = wrapper.onTransitionEnd.listen((event) => endTransition());
     new Timer(const Duration(seconds: 2), (){
       if (subscription != null) {
         _logger.finer('Got no transition end event - forcing end.');

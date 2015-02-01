@@ -1,3 +1,7 @@
+### 0.0.5
+
+* Fixed bug which made zooming in/out much slower (transitionend event was not registered correctly)
+
 ### 0.0.4+4
 
 * Cleanup: Fixed warnings (used deprecated getShadowRoot, unused import)
