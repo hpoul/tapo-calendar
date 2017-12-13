@@ -422,6 +422,11 @@ class CalendarView extends PolymerElement {
       print('CalendarView: onPropertyChange for selectedevent.');
     });
   }
+
+
+  ShadowRoot shadowFromTemplate(Element template) {
+    return this.lightFromTemplate(template);
+  }
   
   void _updateCalcHelpers() {
     
@@ -532,15 +537,13 @@ class CalendarView extends PolymerElement {
   }
   
   void _renderAllEvents() {
-    this.shadowRoots['tapo-calendar-calendarview']
-      .querySelectorAll(".cal-event")
+    this.querySelectorAll(".cal-event")
         .forEach((Element el) => el.remove());
     _events.forEach((event) => _renderEvent(event));
   }
   
   void _renderAllAnnotations() {
-    this.shadowRoots['tapo-calendar-calendarview']
-      .querySelectorAll('.cal-annotation')
+    this.querySelectorAll('.cal-annotation')
         .forEach((Element el) => el.remove());
     _annotations.forEach((event) { _renderAnnotation(event); });
   }
@@ -652,7 +655,7 @@ class CalendarView extends PolymerElement {
     return el;
   }
   
-  Element get calendarWrapper => getShadowRoot('tapo-calendar-calendarview').querySelector('.calendarview-wrapper');
+  Element get calendarWrapper => this.querySelector('.calendarview-wrapper');
   
   void _createHtmlTable() {
     var wrapper = calendarWrapper;
@@ -837,12 +840,13 @@ class CalendarView extends PolymerElement {
     return new DateTime(date.year, date.month, date.day, date.hour, date.minute);
   }
   
-  DivElement _renderEvent(CalendarEvent event) {
+  DivElement _renderEvent(CalendarEvent calendarEvent) {
+    var event = null;
     DivElement dayColumn = _dayColumn; //calendarWrapper.querySelector('#daycol-${_formatDate(day)}');
     
     var eventDiv = _createAndAppend(dayColumn, '<div class="cal-event" />');
-    eventDiv.attributes['eventid'] = '${event.id}';
-    if (event.isInProgress) {
+    eventDiv.attributes['eventid'] = '${calendarEvent.id}';
+    if (calendarEvent.isInProgress) {
       eventDiv.classes.add('type-inprogress');
     }
     var eventTimeDiv = _createAndAppend(eventDiv, '<div class="cal-event-time"><span class="cal-event-time-label"></span></div>');
@@ -861,13 +865,13 @@ class CalendarView extends PolymerElement {
         return null;
       }
     });
-    eventLabelInput.value = event.description;
+    eventLabelInput.value = calendarEvent.description;
     eventLabelInput.onBlur.listen((e){
-      event.description = eventLabelInput.value;
+      calendarEvent.description = eventLabelInput.value;
       _logger.finer('Changed event description to ${eventLabelInput.value}');
       eventLabelInput.classes.remove('editing');
       if (listener != null) {
-        listener.changedEventDescription(event);
+        listener.changedEventDescription(calendarEvent);
       }
     });
     eventLabelInput.onKeyDown.listen((KeyboardEvent e) {
@@ -875,7 +879,7 @@ class CalendarView extends PolymerElement {
         eventLabelInput.blur();
       }
     });
-    if (event.isInProgress) {
+    if (calendarEvent.isInProgress) {
       removeLink.remove();
     } else {
       removeIcon.onMouseDown.listen((e) {
@@ -886,25 +890,25 @@ class CalendarView extends PolymerElement {
         print('clicked removeLink.');
         e.preventDefault();
         e.stopPropagation();
-        _events.remove(event);
-        if (selectedevent == event) {
+        _events.remove(calendarEvent);
+        if (selectedevent == calendarEvent) {
           updateSelectedEvent(null);
         }
         eventDiv.remove();
   
         if (listener != null) {
-          listener.removedEvent(event);
+          listener.removedEvent(calendarEvent);
         }
       });
     }
     
-    _updateEvent(event, eventDiv);
+    _updateEvent(calendarEvent, eventDiv);
     
-    _interactionTracker.trackEvent(event, eventDiv, eventTimeDiv);
+    _interactionTracker.trackEvent(calendarEvent, eventDiv, eventTimeDiv);
     
-    var changed = () => _updateEvent(event, eventDiv);
-    onPropertyChange(event, #title, changed);
-    onPropertyChange(event, #description, changed);
+    var changed = () => _updateEvent(calendarEvent, eventDiv);
+    onPropertyChange(calendarEvent, #title, changed);
+    onPropertyChange(calendarEvent, #description, changed);
     
     return eventDiv;
   }
